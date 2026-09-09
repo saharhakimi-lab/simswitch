@@ -35,7 +35,7 @@
     color: var(--text);
     font-family: var(--sans);
     min-height: 100vh;
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
     direction: rtl;
   }
 
@@ -44,13 +44,13 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   /* ── Crazy Avatar Logo ── */
   .logo {
-    width: 52px; 
-    height: 52px;
+    width: 46px; 
+    height: 46px;
     flex-shrink: 0;
     perspective: 1000px;
     display: flex;
@@ -68,32 +68,24 @@
   }
 
   @keyframes crazySpin {
-    0% {
-      transform: rotateY(0deg) scale(1);
-      filter: drop-shadow(0 0 2px var(--accent));
-    }
-    50% {
-      transform: rotateY(180deg) scale(1.08);
-      filter: drop-shadow(0 0 8px var(--purple));
-    }
-    100% {
-      transform: rotateY(360deg) scale(1);
-      filter: drop-shadow(0 0 2px var(--accent));
-    }
+    0% { transform: rotateY(0deg) scale(1); filter: drop-shadow(0 0 2px var(--accent)); }
+    50% { transform: rotateY(180deg) scale(1.08); filter: drop-shadow(0 0 8px var(--purple)); }
+    100% { transform: rotateY(360deg) scale(1); filter: drop-shadow(0 0 2px var(--accent)); }
   }
 
-  h1 { font-size: 1.5rem; font-weight: 900; color: var(--text); letter-spacing: -.02em; }
+  h1 { font-size: 1.35rem; font-weight: 900; color: var(--text); letter-spacing: -.02em; }
   h1 span { color: var(--accent); }
-  .subtitle { font-size: .78rem; color: var(--muted); margin-top: 2px; }
+  .subtitle { font-size: .75rem; color: var(--muted); margin-top: 1px; }
 
   /* ── Grid ── */
   .grid {
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
     gap: 1rem;
+    align-items: start;
   }
   
-  .left-col {
+  .left-col, .right-col {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -108,36 +100,35 @@
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 10px;
     overflow: hidden;
     box-shadow: var(--shadow);
   }
   .card-hdr {
     display: flex; align-items: center; gap: .5rem;
-    padding: .6rem 1rem;
+    padding: .5rem .8rem;
     background: var(--panel);
     border-bottom: 1px solid var(--border);
-    font-size: .8rem; font-weight: 700;
+    font-size: .78rem; font-weight: 700;
     color: var(--text);
-    letter-spacing: .02em;
   }
   .card-hdr .dot {
     width: 8px; height: 8px; border-radius: 50%;
     background: var(--accent);
     flex-shrink: 0;
   }
-  .card-body { padding: 1rem; }
+  .card-body { padding: .8rem; }
 
   /* ── Inputs ── */
-  label { font-size: .72rem; color: var(--muted); display: block; margin-bottom: .25rem; font-weight: 500; }
+  label { font-size: .7rem; color: var(--muted); display: block; margin-bottom: .2rem; font-weight: 500; }
   input, select {
     background: var(--bg);
     border: 1.5px solid var(--border);
-    border-radius: 7px;
+    border-radius: 6px;
     color: var(--text);
     font-family: var(--mono);
-    font-size: .78rem;
-    padding: .4rem .65rem;
+    font-size: .75rem;
+    padding: .35rem .55rem;
     outline: none;
     transition: border-color .18s, box-shadow .18s;
     direction: ltr;
@@ -147,46 +138,44 @@
     box-shadow: 0 0 0 3px rgba(26,111,191,.12);
   }
   input::placeholder { color: var(--muted2); }
-  .row { display: flex; gap: .5rem; flex-wrap: wrap; align-items: flex-end; }
+  .row { display: flex; gap: .4rem; flex-wrap: wrap; align-items: flex-end; }
 
   .btn {
-    padding: .42rem 1rem;
-    border-radius: 7px;
+    padding: .38rem .85rem;
+    border-radius: 6px;
     border: none;
     font-family: var(--sans);
-    font-size: .78rem;
+    font-size: .75rem;
     font-weight: 700;
     cursor: pointer;
     transition: opacity .15s, transform .1s, box-shadow .15s;
-    box-shadow: 0 1px 4px rgba(0,0,0,.1);
+    box-shadow: 0 1px 3px rgba(0,0,0,.1);
   }
-  .btn:hover { opacity: .88; box-shadow: 0 3px 8px rgba(0,0,0,.15); }
+  .btn:hover { opacity: .88; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
   .btn:active { transform: scale(.97); }
   .btn-primary { background: var(--accent); color: #fff; }
   .btn-success { background: var(--green); color: #fff; }
   .btn-neutral { background: var(--panel); color: var(--text); border: 1px solid var(--border); }
   .btn-play    { background: var(--purple); color: #fff; }
-  .btn-sm { padding: .32rem .75rem; font-size: .72rem; }
+  .btn-sm { padding: .3rem .65rem; font-size: .7rem; }
 
   /* ── Host chips ── */
   .host-chip {
-    display: inline-flex; align-items: center; gap: .35rem;
+    display: inline-flex; align-items: center; gap: .3rem;
     background: var(--panel);
-    border: 1.5px solid var(--border);
-    border-radius: 7px;
-    padding: .28rem .6rem;
-    font-size: .7rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: .2rem .5rem;
+    font-size: .68rem;
     font-family: var(--mono);
-    margin: .2rem;
+    margin: .15rem;
     cursor: pointer;
-    transition: border-color .18s;
   }
   .host-chip:hover { border-color: var(--red); }
   .host-chip .hname { color: var(--accent); font-weight: 700; }
   .host-chip .hip   { color: var(--muted); }
   .host-chip .hmac  { color: var(--purple); }
   .host-chip .del   { color: var(--red); opacity: .5; margin-right: 2px; }
-  .host-chip:hover .del { opacity: 1; }
 
   /* ── Network SVG ── */
   #net-wrap {
@@ -194,23 +183,23 @@
     border-radius: 8px;
     border: 1px solid var(--border);
   }
-  #net-svg { display: block; width: 100%; }
+  #net-svg { display: block; width: 100%; max-height: 230px; }
 
   /* ── Code viewer ── */
   #code-wrap {
-    height: 200px;
+    height: 120px;
     overflow-y: auto;
     font-family: var(--mono);
-    font-size: .7rem;
-    line-height: 1.5;
+    font-size: .68rem;
+    line-height: 1.4;
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;
     background: #fdfaf4;
   }
   .code-section { border-bottom: 1px solid var(--border); }
   .sec-hdr {
-    padding: .25rem .75rem;
-    font-size: .65rem;
+    padding: .2rem .6rem;
+    font-size: .62rem;
     font-weight: 700;
     color: var(--muted);
     background: var(--panel);
@@ -230,13 +219,13 @@
     border-left-color: var(--accent);
   }
   .ln {
-    min-width: 24px;
+    min-width: 22px;
     padding: 1px 4px;
     color: var(--muted2);
     text-align: right;
     user-select: none;
     flex-shrink: 0;
-    font-size: .65rem;
+    font-size: .62rem;
   }
   .lc { padding: 1px 6px; color: var(--muted); white-space: pre; }
   .code-line.hl .lc { color: var(--text); font-weight: 600; }
@@ -244,19 +233,19 @@
   /* ── Step bar ── */
   #step-bar {
     display: flex; align-items: center; gap: .4rem;
-    padding: .5rem .75rem;
+    padding: .4rem .75rem;
     background: var(--panel);
     border-bottom: 1px solid var(--border);
     flex-wrap: wrap;
   }
   .step-counter {
     font-family: var(--mono);
-    font-size: .72rem;
+    font-size: .7rem;
     color: var(--muted);
-    min-width: 72px;
+    min-width: 65px;
   }
   #step-desc {
-    font-size: .75rem;
+    font-size: .72rem;
     color: var(--accent2);
     font-weight: 600;
     flex: 1;
@@ -267,42 +256,44 @@
 
   /* ── Tables ── */
   .large-table-container {
-    min-height: 180px;
+    min-height: 140px;
+    max-height: 180px;
+    overflow-y: auto;
   }
   table.tbl {
     width: 100%; border-collapse: collapse;
-    font-family: var(--mono); font-size: .85rem;
+    font-family: var(--mono); font-size: .78rem;
   }
   .tbl th {
     color: var(--accent2); font-weight: 700;
-    text-align: right; padding: .5rem .6rem;
+    text-align: right; padding: .4rem .5rem;
     border-bottom: 2px solid var(--border);
-    font-size: .75rem; text-transform: uppercase;
+    font-size: .7rem; text-transform: uppercase;
     background: var(--panel);
   }
   .tbl td {
-    padding: .5rem .6rem;
+    padding: .35rem .5rem;
     border-bottom: 1px solid var(--border);
     color: var(--text);
   }
   
   /* ── ARP ── */
   .arp-host { 
-    margin-bottom: .8rem; 
+    margin-bottom: .5rem; 
     background: var(--bg);
-    padding: .5rem .75rem;
+    padding: .4rem .6rem;
     border-radius: 6px;
     border: 1px solid var(--border);
   }
-  .arp-name { font-size: .78rem; font-weight: 700; color: var(--accent); font-family: var(--mono); margin-bottom: .3rem; }
-  .arp-empty { color: var(--muted2); font-family: var(--mono); font-size: .75rem; }
-  .arp-entry { font-family: var(--mono); font-size: .8rem; color: var(--text); font-weight: 600; }
-  .arp-entry .arrow { color: var(--muted2); margin: 0 .3rem; }
+  .arp-name { font-size: .72rem; font-weight: 700; color: var(--accent); font-family: var(--mono); margin-bottom: .2rem; }
+  .arp-empty { color: var(--muted2); font-family: var(--mono); font-size: .7rem; }
+  .arp-entry { font-family: var(--mono); font-size: .72rem; color: var(--text); font-weight: 600; }
+  .arp-entry .arrow { color: var(--muted2); margin: 0 .2rem; }
 
   /* ── Log ── */
   #log {
-    height: 120px; overflow-y: auto;
-    font-family: var(--mono); font-size: .75rem; line-height: 1.75;
+    height: 100px; overflow-y: auto;
+    font-family: var(--mono); font-size: .72rem; line-height: 1.6;
     scrollbar-width: thin; scrollbar-color: var(--border) transparent;
   }
   .log-entry { color: var(--muted); }
@@ -312,11 +303,11 @@
   .log-entry.data  { color: var(--accent); }
   .log-entry.flood { color: var(--purple); }
 
-  .empty { color: var(--muted2); font-size: .8rem; font-family: var(--mono); text-align: center; padding: 1.5rem; }
+  .empty { color: var(--muted2); font-size: .75rem; font-family: var(--mono); text-align: center; padding: 1rem; }
 
   /* ── Speed ── */
-  #speed-wrap { display: flex; align-items: center; gap: .5rem; font-size: .72rem; color: var(--muted); }
-  #speed { width: 80px; accent-color: var(--accent); cursor: pointer; }
+  #speed-wrap { display: flex; align-items: center; gap: .4rem; font-size: .7rem; color: var(--muted); }
+  #speed { width: 75px; accent-color: var(--accent); cursor: pointer; }
 
   /* ── Packet pulse ── */
   @keyframes pkpulse {
@@ -325,59 +316,24 @@
   }
   .pkt-circle { animation: pkpulse .65s ease-in-out infinite; }
 
-  .span2 { grid-column: 1 / -1; }
-
   /* ── Floating Bot Widget ── */
   .bot-widget {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--surface);
-    border: 2px solid var(--accent);
-    padding: 8px 14px 8px 8px;
-    border-radius: 50px;
-    box-shadow: var(--shadow-lg);
-    cursor: pointer;
-    text-decoration: none;
-    color: var(--text);
-    z-index: 1000;
-    transition: transform .2s ease, box-shadow .2s ease;
+    position: fixed; bottom: 15px; left: 15px;
+    display: flex; align-items: center; gap: 8px;
+    background: var(--surface); border: 2px solid var(--accent);
+    padding: 6px 12px 6px 6px; border-radius: 50px;
+    box-shadow: var(--shadow-lg); cursor: pointer; text-decoration: none; color: var(--text); z-index: 1000;
   }
-  .bot-widget:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 24px rgba(0,0,0,.18);
-  }
-  .bot-avatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--accent);
-  }
-  .bot-text {
-    display: flex;
-    flex-direction: column;
-  }
-  .bot-title {
-    font-size: .82rem;
-    font-weight: 700;
-    color: var(--accent2);
-  }
-  .bot-sub {
-    font-size: .68rem;
-    color: var(--muted);
-  }
+  .bot-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); }
+  .bot-title { font-size: .75rem; font-weight: 700; color: var(--accent2); }
+  .bot-sub { font-size: .62rem; color: var(--muted); }
 
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     .grid { grid-template-columns: 1fr; }
-    .span2 { grid-column: 1; }
     .tables-row { grid-template-columns: 1fr; }
   }
 </style>
@@ -396,30 +352,40 @@
 
 <div class="grid">
 
-  <!-- עמודה ימנית: בקרות + טופולוגיה + קוד -->
+  <!-- עמודה ימנית: בקרות + טופולוגיה -->
   <div class="left-col">
 
     <!-- Add host & Send frame -->
     <div class="card">
       <div class="card-hdr"><span class="dot" style="background:var(--green)"></span>הגדרות ופעולות</div>
       <div class="card-body">
-        <div class="row" style="margin-bottom:.8rem">
-          <div><label>שם</label><input id="in-name" placeholder="PC1" style="width:60px"></div>
-          <div><label>כתובת IP</label><input id="in-ip" placeholder="192.168.1.1" style="width:110px"></div>
-          <div><label>MAC</label><input id="in-mac" placeholder="AA:01" style="width:70px"></div>
+        <div class="row" style="margin-bottom:.6rem">
+          <div><label>שם</label><input id="in-name" placeholder="PC1" style="width:55px"></div>
+          <div><label>כתובת IP</label><input id="in-ip" placeholder="192.168.1.1" style="width:100px"></div>
+          <div><label>MAC</label><input id="in-mac" placeholder="AA:01" style="width:65px"></div>
           <div><button class="btn btn-success" onclick="addHost()">+ הוסף</button></div>
         </div>
-        <div id="host-list" style="margin-bottom: 1rem;"></div>
-        <hr style="border:0; border-top: 1px solid var(--border); margin: .8rem 0;">
+        <div id="host-list" style="margin-bottom: .6rem;"></div>
+        <hr style="border:0; border-top: 1px solid var(--border); margin: .6rem 0;">
         <div class="row">
           <div><label>שולח</label><select id="sel-src" style="width:110px"></select></div>
-          <div><label>IP יעד</label><input id="in-dst" placeholder="192.168.1.2" style="width:110px"></div>
-          <div><label>הודעה</label><input id="in-msg" placeholder="שלום!" style="width:80px"></div>
+          <div><label>IP יעד</label><select id="sel-dst" style="width:110px"></select></div>
+          <div>
+            <label>הודעה</label>
+            <select id="sel-msg" style="width:110px">
+              <option value="שלום!">שלום!</option>
+              <option value="PING Req">PING Req</option>
+              <option value="HTTP Get">HTTP Get</option>
+              <option value="ARP Query">ARP Query</option>
+              <option value="Data Frame">Data Frame</option>
+            </select>
+          </div>
           <div><button class="btn btn-primary" onclick="runSim()">▶ הרץ</button></div>
           <div id="speed-wrap" style="margin-right:auto;">
             <span>מהירות:</span>
-            <input type="range" id="speed" min="300" max="2500" value="1200" step="100">
-            <span id="speed-label">1.2s</span>
+            <!-- סרגל מהירות מ-500ms עד 6000ms, ברירת מחדל 3000ms -->
+            <input type="range" id="speed" min="500" max="6000" value="3000" step="250">
+            <span id="speed-label">3.0s</span>
           </div>
         </div>
       </div>
@@ -429,7 +395,7 @@
     <div class="card">
       <div class="card-hdr"><span class="dot" style="background:var(--purple)"></span>טופולוגיית רשת</div>
       
-      <!-- כפתורי השליטה ממוקמים כעת מעל דיאגרמת הרשת -->
+      <!-- כפתורי שליטה מעל הדיאגרמה -->
       <div id="step-bar">
         <button class="btn btn-sm btn-neutral" onclick="resetSim()">↺ איפוס</button>
         <button class="btn btn-sm btn-neutral" onclick="prevStep()">◀ אחורה</button>
@@ -439,32 +405,21 @@
         <span id="step-desc"></span>
       </div>
 
-      <div class="card-body" style="padding:.75rem">
-        <div id="net-wrap"><svg id="net-svg" viewBox="0 0 320 210" style="display:block;width:100%"></svg></div>
+      <div class="card-body" style="padding:.5rem">
+        <div id="net-wrap"><svg id="net-svg" viewBox="0 0 320 200" style="display:block;width:100%"></svg></div>
       </div>
-    </div>
-
-    <!-- Code viewer -->
-    <div class="card" style="display:flex;flex-direction:column">
-      <div class="card-hdr" style="justify-content:space-between">
-        <span style="display:flex;align-items:center;gap:.5rem">
-          <span class="dot" style="background:var(--yellow)"></span>קוד פייתון מדמה (Python)
-        </span>
-        <span id="active-fn" style="color:var(--accent2);font-size:.72rem;font-family:var(--mono);font-weight:700"></span>
-      </div>
-      <div id="code-wrap"></div>
     </div>
 
   </div>
 
-  <!-- עמודה שמאלית: טבלאות מוגדלות + לוג -->
-  <div class="left-col">
+  <!-- עמודה שמאלית: טבלאות מול העיניים + לוג + קוד בתחתית -->
+  <div class="right-col">
 
     <div class="tables-row">
       <!-- MAC Table -->
       <div class="card">
         <div class="card-hdr"><span class="dot" style="background:var(--accent)"></span>טבלת מתג MAC Table</div>
-        <div class="card-body large-table-container" style="padding:.75rem">
+        <div class="card-body large-table-container" style="padding:.5rem">
           <div id="mac-table-wrap"><div class="empty">ריקה</div></div>
         </div>
       </div>
@@ -472,18 +427,29 @@
       <!-- ARP Tables -->
       <div class="card">
         <div class="card-hdr"><span class="dot" style="background:var(--green)"></span>טבלאות ARP ברשת</div>
-        <div class="card-body large-table-container" style="padding:.75rem">
+        <div class="card-body large-table-container" style="padding:.5rem">
           <div id="arp-tables-wrap"><div class="empty">ריקות</div></div>
         </div>
       </div>
     </div>
 
     <!-- לוג activity -->
-    <div class="card" style="flex:1;">
+    <div class="card">
       <div class="card-hdr"><span class="dot" style="background:var(--yellow)"></span>לוג פעילות רשת</div>
-      <div class="card-body" style="padding:.75rem">
+      <div class="card-body" style="padding:.5rem">
         <div id="log"><div class="empty">הרץ סימולציה לצפייה ביומן הפעילות...</div></div>
       </div>
+    </div>
+
+    <!-- Code viewer (מוקטן למטה) -->
+    <div class="card" style="display:flex;flex-direction:column">
+      <div class="card-hdr" style="justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:.4rem">
+          <span class="dot" style="background:var(--yellow)"></span>קוד פייתון מדמה (Python)
+        </span>
+        <span id="active-fn" style="color:var(--accent2);font-size:.68rem;font-family:var(--mono);font-weight:700"></span>
+      </div>
+      <div id="code-wrap"></div>
     </div>
 
   </div>
@@ -683,7 +649,7 @@ function applyHighlight(step) {
   const { section, lines } = step;
   document.getElementById("active-fn").textContent = `▶ ${CODE[section].label}`;
   const secHdr = document.querySelector(`[data-sec="${section}"] .sec-hdr`);
-  if (secHdr) { secHdr.classList.add("active"); secHdr.scrollIntoView({ block:"nearest", behavior:"smooth" }); }
+  if (secHdr) { secHdr.classList.add("active"); }
   lines.forEach(ln => {
     const el = document.querySelector(`.code-line[data-sec="${section}"][data-ln="${ln}"]`);
     if (el) el.classList.add("hl");
@@ -695,12 +661,12 @@ function applyHighlight(step) {
 // ──────────────────────────────────────────────
 function renderNetwork(step) {
   const svg = document.getElementById("net-svg");
-  const W = 320, H = 210;
+  const W = 320, H = 200;
   const SW = { x: W/2, y: H/2 };
   const n = hosts.length;
   const pts = hosts.map((_, i) => {
     const a = (i / n) * 2 * Math.PI - Math.PI/2;
-    return { x: SW.x + 105*Math.cos(a), y: SW.y + 75*Math.sin(a) };
+    return { x: SW.x + 105*Math.cos(a), y: SW.y + 70*Math.sin(a) };
   });
 
   const pkt = step?.pkt;
@@ -738,13 +704,13 @@ function renderNetwork(step) {
     const stroke = isSrc ? "#8a6000" : isDst ? "#1a7a3c" : "#c8bfa8";
     const sw     = isSrc || isDst ? 2 : 1;
     html += `
-      <rect x="${p.x-36}" y="${p.y-25}" width="72" height="52" rx="8"
+      <rect x="${p.x-36}" y="${p.y-25}" width="72" height="50" rx="8"
         fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>
-      <text x="${p.x}" y="${p.y-8}" text-anchor="middle" font-size="14">🖥️</text>
-      <text x="${p.x}" y="${p.y+7}" text-anchor="middle"
-        font-family="IBM Plex Mono" font-size="9" font-weight="700" fill="#1c1c1c">${esc(h.name)}</text>
-      <text x="${p.x}" y="${p.y+18}" text-anchor="middle"
-        font-family="IBM Plex Mono" font-size="7.5" fill="#6b6358">${esc(h.ip)}</text>
+      <text x="${p.x}" y="${p.y-8}" text-anchor="middle" font-size="13">🖥️</text>
+      <text x="${p.x}" y="${p.y+6}" text-anchor="middle"
+        font-family="IBM Plex Mono" font-size="8.5" font-weight="700" fill="#1c1c1c">${esc(h.name)}</text>
+      <text x="${p.x}" y="${p.y+17}" text-anchor="middle"
+        font-family="IBM Plex Mono" font-size="7" fill="#6b6358">${esc(h.ip)}</text>
     `;
   });
 
@@ -790,7 +756,7 @@ function renderMacTable(snap) {
   const wrap = document.getElementById("mac-table-wrap");
   if (!snap || !Object.keys(snap).length) { wrap.innerHTML='<div class="empty">טבלה ריקה</div>'; return; }
   wrap.innerHTML = `<table class="tbl"><thead><tr>
-    <th>כתובת MAC</th><th>פורט (Port)</th></tr></thead><tbody>` +
+    <th>MAC</th><th>פורט</th></tr></thead><tbody>` +
     Object.entries(snap).map(([mac,idx])=>
       `<tr><td style="font-weight:600; color:var(--purple);">${mac}</td><td style="color:var(--accent);font-weight:700">Port ${idx+1}</td></tr>`
     ).join("") + `</tbody></table>`;
@@ -826,15 +792,20 @@ function renderLog() {
 }
 
 // ──────────────────────────────────────────────
-//  HOST LIST
+//  HOST LIST & DROPDOWNS
 // ──────────────────────────────────────────────
 function renderHostList() {
-  const wrap = document.getElementById("host-list");
-  const sel  = document.getElementById("sel-src");
+  const wrap   = document.getElementById("host-list");
+  const selSrc = document.getElementById("sel-src");
+  const selDst = document.getElementById("sel-dst");
+  
   if (!hosts.length) {
     wrap.innerHTML='<div class="empty">הוסף מחשבים למעלה</div>';
-    sel.innerHTML=""; return;
+    selSrc.innerHTML=""; 
+    selDst.innerHTML=""; 
+    return;
   }
+  
   wrap.innerHTML = hosts.map((h,i)=>
     `<span class="host-chip" onclick="removeHost(${i})">
       🖥️ <span class="hname">${h.name}</span>
@@ -842,8 +813,17 @@ function renderHostList() {
       <span class="hmac">${h.mac}</span>
       <span class="del">✕</span>
     </span>`).join("");
-  sel.innerHTML = hosts.map((h,i)=>
+    
+  selSrc.innerHTML = hosts.map((h,i)=>
     `<option value="${i}">${h.name} (${h.ip})</option>`).join("");
+
+  selDst.innerHTML = hosts.map((h)=>
+    `<option value="${h.ip}">${h.name} (${h.ip})</option>`).join("");
+    
+  // ברירת מחדל ליעד: המחשב השני ברשימה אם קיים
+  if (hosts.length > 1) {
+    selDst.selectedIndex = 1;
+  }
 }
 
 // ──────────────────────────────────────────────
@@ -889,11 +869,11 @@ function stopPlay() {
 function runSim() {
   stopPlay();
   const srcIdx = parseInt(document.getElementById("sel-src").value, 10);
-  const dstIp  = document.getElementById("in-dst").value.trim();
-  const msg    = document.getElementById("in-msg").value.trim() || "שלום!";
-  if (!dstIp) { alert("הכנס IP יעד"); return; }
+  const dstIp  = document.getElementById("sel-dst").value;
+  const msg    = document.getElementById("sel-msg").value;
+  if (!dstIp) { alert("בחר IP יעד"); return; }
   steps = buildSim(srcIdx, dstIp, msg);
-  if (!steps.length) { alert("לא נמצא יעד, או שמקור = יעד"); return; }
+  if (!steps.length) { alert("לא ניתן להריץ: המקור והיעד הם אותו מחשב!"); return; }
   cur = -1; applyStep(null);
 }
 
