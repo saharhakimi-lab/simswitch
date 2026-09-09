@@ -47,7 +47,7 @@
     margin-bottom: 1.5rem;
   }
 
-  /* ── Crazy Avatar Logo (ללא עיגול מסגרת מיותר) ── */
+  /* ── Crazy Avatar Logo ── */
   .logo {
     width: 52px; 
     height: 52px;
@@ -67,7 +67,6 @@
     animation: crazySpin 6s linear infinite;
   }
 
-  /* 🎯 אנימציה מטורללת: סיבוב תלת-ממדי חלק ונקי */
   @keyframes crazySpin {
     0% {
       transform: rotateY(0deg) scale(1);
@@ -197,7 +196,7 @@
   }
   #net-svg { display: block; width: 100%; }
 
-  /* ── Code viewer (חלונית קטנה) ── */
+  /* ── Code viewer ── */
   #code-wrap {
     height: 200px;
     overflow-y: auto;
@@ -247,7 +246,7 @@
     display: flex; align-items: center; gap: .4rem;
     padding: .5rem .75rem;
     background: var(--panel);
-    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
     flex-wrap: wrap;
   }
   .step-counter {
@@ -266,7 +265,7 @@
     white-space: nowrap;
   }
 
-  /* ── Tables (מוגדלות ובולטות) ── */
+  /* ── Tables ── */
   .large-table-container {
     min-height: 180px;
   }
@@ -386,7 +385,6 @@
 <body>
 
 <header>
-  <!-- הלוגו מעודכן עם האוואטר המסתובב ללא רקע מיותר -->
   <div class="logo">
     <img src="https://lh3.googleusercontent.com/d/1t9QaPCKLvtAhWncetA83ALY8EIvpnFte" alt="Crazy Avatar" class="crazy-avatar">
   </div>
@@ -430,20 +428,8 @@
     <!-- Topology -->
     <div class="card">
       <div class="card-hdr"><span class="dot" style="background:var(--purple)"></span>טופולוגיית רשת</div>
-      <div class="card-body" style="padding:.75rem">
-        <div id="net-wrap"><svg id="net-svg" viewBox="0 0 320 210" style="display:block;width:100%"></svg></div>
-      </div>
-    </div>
-
-    <!-- Code viewer (חלונית קטנה) -->
-    <div class="card" style="display:flex;flex-direction:column">
-      <div class="card-hdr" style="justify-content:space-between">
-        <span style="display:flex;align-items:center;gap:.5rem">
-          <span class="dot" style="background:var(--yellow)"></span>קוד פייתון מדמה (Python)
-        </span>
-        <span id="active-fn" style="color:var(--accent2);font-size:.72rem;font-family:var(--mono);font-weight:700"></span>
-      </div>
-      <div id="code-wrap"></div>
+      
+      <!-- כפתורי השליטה ממוקמים כעת מעל דיאגרמת הרשת -->
       <div id="step-bar">
         <button class="btn btn-sm btn-neutral" onclick="resetSim()">↺ איפוס</button>
         <button class="btn btn-sm btn-neutral" onclick="prevStep()">◀ אחורה</button>
@@ -452,6 +438,21 @@
         <span class="step-counter" id="step-counter">לחץ הרץ</span>
         <span id="step-desc"></span>
       </div>
+
+      <div class="card-body" style="padding:.75rem">
+        <div id="net-wrap"><svg id="net-svg" viewBox="0 0 320 210" style="display:block;width:100%"></svg></div>
+      </div>
+    </div>
+
+    <!-- Code viewer -->
+    <div class="card" style="display:flex;flex-direction:column">
+      <div class="card-hdr" style="justify-content:space-between">
+        <span style="display:flex;align-items:center;gap:.5rem">
+          <span class="dot" style="background:var(--yellow)"></span>קוד פייתון מדמה (Python)
+        </span>
+        <span id="active-fn" style="color:var(--accent2);font-size:.72rem;font-family:var(--mono);font-weight:700"></span>
+      </div>
+      <div id="code-wrap"></div>
     </div>
 
   </div>
@@ -690,7 +691,7 @@ function applyHighlight(step) {
 }
 
 // ──────────────────────────────────────────────
-//  NETWORK SVG (עם אייקונים של מחשבים)
+//  NETWORK SVG
 // ──────────────────────────────────────────────
 function renderNetwork(step) {
   const svg = document.getElementById("net-svg");
@@ -728,7 +729,7 @@ function renderNetwork(step) {
       font-family="IBM Plex Mono" font-size="8" fill="#1a6fbf">L2</text>
   `;
 
-  // Hosts with Computer Icons 🖥️
+  // Hosts
   hosts.forEach((h, i) => {
     const p = pts[i];
     const isSrc = pkt?.from === i;
