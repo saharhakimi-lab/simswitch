@@ -177,7 +177,7 @@
   .host-chip .hmac  { color: var(--purple); }
   .host-chip .del   { color: var(--red); opacity: .5; margin-right: 2px; }
 
-  /* ── Network SVG (מוגדל ומרווח) ── */
+  /* ── Network SVG ── */
   #net-wrap {
     background: var(--panel);
     border-radius: 8px;
@@ -230,7 +230,7 @@
   .lc { padding: 1px 6px; color: var(--muted); white-space: pre; }
   .code-line.hl .lc { color: var(--text); font-weight: 600; }
 
-  /* ── Step bar ── */
+  /* ── Step bar & Desc Box ── */
   #step-bar {
     display: flex; align-items: center; gap: .4rem;
     padding: .4rem .75rem;
@@ -243,15 +243,20 @@
     font-size: .7rem;
     color: var(--muted);
     min-width: 65px;
+    margin-right: auto;
   }
-  #step-desc {
-    font-size: .72rem;
+  #step-desc-box {
+    margin-top: .5rem;
+    padding: .5rem .8rem;
+    background: #deeaf8;
+    border: 1px solid #b8d4f2;
+    border-radius: 6px;
+    font-size: .75rem;
     color: var(--accent2);
     font-weight: 600;
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    min-height: 38px;
+    display: flex;
+    align-items: center;
   }
 
   /* ── Tables ── */
@@ -352,10 +357,10 @@
 
 <div class="grid">
 
-  <!-- עמודה ימנית: טופולוגיה למעלה, הגדרות ופעולות למטה -->
+  <!-- עמודה ימנית: טופולוגיה בלבד -->
   <div class="left-col">
 
-    <!-- Topology (הועבר למעלה) -->
+    <!-- Topology -->
     <div class="card">
       <div class="card-hdr"><span class="dot" style="background:var(--purple)"></span>טופולוגיית רשת</div>
       
@@ -366,15 +371,39 @@
         <button class="btn btn-sm btn-primary" onclick="nextStep()">▶ קדימה</button>
         <button class="btn btn-sm btn-play" id="play-btn" onclick="togglePlay()">▶▶ אוטו</button>
         <span class="step-counter" id="step-counter">לחץ הרץ</span>
-        <span id="step-desc"></span>
       </div>
 
       <div class="card-body" style="padding:.5rem">
         <div id="net-wrap"><svg id="net-svg" viewBox="0 0 360 280" style="display:block;width:100%"></svg></div>
+        <!-- חלונית תיאור השלב מתחת לסימולטור -->
+        <div id="step-desc-box"><span id="step-desc"></span></div>
       </div>
     </div>
 
-    <!-- Add host & Send frame (הועבר למטה) -->
+  </div>
+
+  <!-- עמודה שמאלית: טבלאות, הגדרות ופעולות (מעל הוג), לוג, קוד -->
+  <div class="right-col">
+
+    <div class="tables-row">
+      <!-- MAC Table -->
+      <div class="card">
+        <div class="card-hdr"><span class="dot" style="background:var(--accent)"></span>טבלת מתג MAC Table</div>
+        <div class="card-body large-table-container" style="padding:.5rem">
+          <div id="mac-table-wrap"><div class="empty">ריקה</div></div>
+        </div>
+      </div>
+
+      <!-- ARP Tables -->
+      <div class="card">
+        <div class="card-hdr"><span class="dot" style="background:var(--green)"></span>טבלאות ARP ברשת</div>
+        <div class="card-body large-table-container" style="padding:.5rem">
+          <div id="arp-tables-wrap"><div class="empty">ריקות</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add host & Send frame (הועבר לכאן - מעל לוג פעילות רשת) -->
     <div class="card">
       <div class="card-hdr"><span class="dot" style="background:var(--green)"></span>הגדרות ופעולות</div>
       <div class="card-body">
@@ -402,33 +431,9 @@
           <div><button class="btn btn-primary" onclick="runSim()">▶ הרץ</button></div>
           <div id="speed-wrap" style="margin-right:auto;">
             <span>מהירות:</span>
-            <!-- סרגל מהירות מ-500ms עד 6000ms, ברירת מחדל 3000ms -->
             <input type="range" id="speed" min="500" max="6000" value="3000" step="250">
             <span id="speed-label">3.0s</span>
           </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- עמודה שמאלית: טבלאות מול העיניים + לוג + קוד בתחתית -->
-  <div class="right-col">
-
-    <div class="tables-row">
-      <!-- MAC Table -->
-      <div class="card">
-        <div class="card-hdr"><span class="dot" style="background:var(--accent)"></span>טבלת מתג MAC Table</div>
-        <div class="card-body large-table-container" style="padding:.5rem">
-          <div id="mac-table-wrap"><div class="empty">ריקה</div></div>
-        </div>
-      </div>
-
-      <!-- ARP Tables -->
-      <div class="card">
-        <div class="card-hdr"><span class="dot" style="background:var(--green)"></span>טבלאות ARP ברשת</div>
-        <div class="card-body large-table-container" style="padding:.5rem">
-          <div id="arp-tables-wrap"><div class="empty">ריקות</div></div>
         </div>
       </div>
     </div>
@@ -441,7 +446,7 @@
       </div>
     </div>
 
-    <!-- Code viewer (מוקטן למטה) -->
+    <!-- Code viewer -->
     <div class="card" style="display:flex;flex-direction:column">
       <div class="card-hdr" style="justify-content:space-between">
         <span style="display:flex;align-items:center;gap:.4rem">
@@ -657,14 +662,13 @@ function applyHighlight(step) {
 }
 
 // ──────────────────────────────────────────────
-//  NETWORK SVG (מוגדל ומרווח)
+//  NETWORK SVG
 // ──────────────────────────────────────────────
 function renderNetwork(step) {
   const svg = document.getElementById("net-svg");
   const W = 360, H = 280;
   const SW = { x: W/2, y: H/2 };
   const n = hosts.length;
-  // ריווח והגדלת רדיוס הפריסה של ה-Hosts
   const pts = hosts.map((_, i) => {
     const a = (i / n) * 2 * Math.PI - Math.PI/2;
     return { x: SW.x + 125*Math.cos(a), y: SW.y + 95*Math.sin(a) };
@@ -686,7 +690,7 @@ function renderNetwork(step) {
       ${active ? 'stroke-dasharray="5 4"' : ''}/>`;
   });
 
-  // Switch (מוגדל)
+  // Switch
   html += `
     <rect x="${SW.x-40}" y="${SW.y-23}" width="80" height="46" rx="9"
       fill="#deeaf8" stroke="#1a6fbf" stroke-width="2.5"/>
@@ -696,7 +700,7 @@ function renderNetwork(step) {
       font-family="IBM Plex Mono" font-size="9.5" font-weight="600" fill="#1a6fbf">L2</text>
   `;
 
-  // Hosts (מוגדלים ומרווחים)
+  // Hosts
   hosts.forEach((h, i) => {
     const p = pts[i];
     const isSrc = pkt?.from === i;
@@ -715,7 +719,7 @@ function renderNetwork(step) {
     `;
   });
 
-  // Packets (מוגדלים)
+  // Packets
   if (pkt) {
     const clrs  = { ARP:"#8a6000", ARP_REPLY:"#1a7a3c", DATA:"#1a6fbf" };
     const bgclr = { ARP:"#fdf4dc", ARP_REPLY:"#e6f4ec", DATA:"#deeaf8" };
@@ -821,7 +825,6 @@ function renderHostList() {
   selDst.innerHTML = hosts.map((h)=>
     `<option value="${h.ip}">${h.name} (${h.ip})</option>`).join("");
     
-  // ברירת מחדל ליעד: המחשב השני ברשימה אם קיים
   if (hosts.length > 1) {
     selDst.selectedIndex = 1;
   }
@@ -838,8 +841,14 @@ function applyStep(step) {
   renderLog();
   const counter = document.getElementById("step-counter");
   const desc    = document.getElementById("step-desc");
-  if (!steps.length) { counter.textContent="לחץ הרץ"; desc.textContent=""; }
-  else { counter.textContent=`שלב ${Math.max(cur+1,0)} / ${steps.length}`; desc.textContent=step?.desc||""; }
+  if (!steps.length) { 
+    counter.textContent="לחץ הרץ"; 
+    desc.textContent="לחץ על '▶ הרץ' בחלונית ההגדרות כדי להתחיל בסימולציה."; 
+  }
+  else { 
+    counter.textContent=`שלב ${Math.max(cur+1,0)} / ${steps.length}`; 
+    desc.textContent=step?.desc||""; 
+  }
 }
 
 // ──────────────────────────────────────────────
