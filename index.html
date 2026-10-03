@@ -1,920 +1,834 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>מדמה סוויטש L2</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg:        #f5f0e8;
-    --surface:   #fdfaf4;
-    --panel:     #eee8d8;
-    --border:    #d6cebc;
-    --border2:   #c8bfa8;
-    --accent:    #1a6fbf;
-    --accent2:   #1557a0;
-    --green:     #1a7a3c;
-    --green-bg:  #e6f4ec;
-    --yellow:    #8a6000;
-    --yellow-bg: #fdf4dc;
-    --red:       #c0392b;
-    --purple:    #6b3fa0;
-    --purple-bg: #f0eaf8;
-    --text:      #1c1c1c;
-    --muted:     #6b6358;
-    --muted2:    #9a9080;
-    --mono:      'IBM Plex Mono', monospace;
-    --sans:      'Heebo', sans-serif;
-    --shadow:    0 2px 8px rgba(0,0,0,.08);
-    --shadow-lg: 0 4px 20px rgba(0,0,0,.12);
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    min-height: 100vh;
-    padding: 1rem 1.5rem;
-    direction: rtl;
-  }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מדמה סוויטש L2 | סימולטור רשתות אינטראקטיבי</title>
 
-  /* ── Header ── */
-  header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-  }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@700;800;900&family=Heebo:wght@400;500;700;800&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
 
-  /* ── Crazy Avatar Logo ── */
-  .logo {
-    width: 46px; 
-    height: 46px;
-    flex-shrink: 0;
-    perspective: 1000px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .crazy-avatar {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-    box-shadow: 0 0 12px rgba(107, 63, 160, 0.4);
-    animation: crazySpin 6s linear infinite;
-  }
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-  @keyframes crazySpin {
-    0% { transform: rotateY(0deg) scale(1); filter: drop-shadow(0 0 2px var(--accent)); }
-    50% { transform: rotateY(180deg) scale(1.08); filter: drop-shadow(0 0 8px var(--purple)); }
-    100% { transform: rotateY(360deg) scale(1); filter: drop-shadow(0 0 2px var(--accent)); }
-  }
+    <style>
+        :root {
+            --bg: #fbf8ee;
+            --paper: #ffffff;
+            --ink: #20150f;
+            --soft: #3b2b22;
+            --muted: #5a4a40;
+            --line: #e6d9bf;
+            --red: #b91c1c;
+            --red-text: #a11a1a;
+            --red-soft: #fcebe7;
+            --red-edge: #e9b8ae;
+            --term: #0b5d73;
+            --term-soft: #e1f3f8;
+            --aside-bg: #f6eadc;
+            --aside-edge: #e2c9a8;
+            --aside-ink: #5b3a1a;
 
-  h1 { font-size: 1.35rem; font-weight: 900; color: var(--text); letter-spacing: -.02em; }
-  h1 span { color: var(--accent); }
-  .subtitle { font-size: .75rem; color: var(--muted); margin-top: 1px; }
+            --c-sky: #0e7490;   --c-sky-bg: #e3f4f9;
+            --c-green: #047857; --c-green-bg: #e1f5ee;
+            --c-amber: #b45309; --c-amber-bg: #fdf1dd;
+            --c-violet: #6d28d9; --c-violet-bg: #efe8fb;
 
-  /* ── Grid ── */
-  .grid {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 1rem;
-    align-items: start;
-  }
-  
-  .left-col, .right-col {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .tables-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
-  
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-  }
-  .card-hdr {
-    display: flex; align-items: center; gap: .5rem;
-    padding: .5rem .8rem;
-    background: var(--panel);
-    border-bottom: 1px solid var(--border);
-    font-size: .78rem; font-weight: 700;
-    color: var(--text);
-  }
-  .card-hdr .dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
-  .card-body { padding: .8rem; }
+            --ok-bg: #d8f3e6; --ok-edge: #0b6b4a;
+            --bad-bg: #fcdcd6; --bad-edge: #a11a1a;
+            --shadow: 0 10px 30px -12px rgba(120, 40, 20, 0.18);
 
-  /* ── Inputs ── */
-  label { font-size: .7rem; color: var(--muted); display: block; margin-bottom: .2rem; font-weight: 500; }
-  input, select {
-    background: var(--bg);
-    border: 1.5px solid var(--border);
-    border-radius: 6px;
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: .75rem;
-    padding: .35rem .55rem;
-    outline: none;
-    transition: border-color .18s, box-shadow .18s;
-    direction: ltr;
-  }
-  input:focus, select:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(26,111,191,.12);
-  }
-  input::placeholder { color: var(--muted2); }
-  .row { display: flex; gap: .4rem; flex-wrap: wrap; align-items: flex-end; }
+            --font-body: 'Heebo', 'Assistant', system-ui, sans-serif;
+            --font-display: 'Rubik', 'Heebo', system-ui, sans-serif;
+            --font-code: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+        }
 
-  .btn {
-    padding: .38rem .85rem;
-    border-radius: 6px;
-    border: none;
-    font-family: var(--sans);
-    font-size: .75rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: opacity .15s, transform .1s, box-shadow .15s;
-    box-shadow: 0 1px 3px rgba(0,0,0,.1);
-  }
-  .btn:hover { opacity: .88; box-shadow: 0 2px 6px rgba(0,0,0,.15); }
-  .btn:active { transform: scale(.97); }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-success { background: var(--green); color: #fff; }
-  .btn-neutral { background: var(--panel); color: var(--text); border: 1px solid var(--border); }
-  .btn-play    { background: var(--purple); color: #fff; }
-  .btn-sm { padding: .3rem .65rem; font-size: .7rem; }
+        body.dark {
+            --bg: #181311;
+            --paper: #241c18;
+            --ink: #f8efe7;
+            --soft: #eadfd5;
+            --muted: #d0c0b3;
+            --line: #3d2f26;
+            --red-text: #ff9b9b;
+            --red-soft: #3c1f1c;
+            --red-edge: #6d3a33;
+            --term: #7fdcf0;
+            --term-soft: #123640;
+            --aside-bg: #3a2c20;
+            --aside-edge: #6b5237;
+            --aside-ink: #f6dfc0;
+            --c-sky: #7fdcf0;   --c-sky-bg: rgba(14, 116, 144, 0.22);
+            --c-green: #6ee7b7; --c-green-bg: rgba(4, 120, 87, 0.24);
+            --c-amber: #fcd34d; --c-amber-bg: rgba(180, 83, 9, 0.26);
+            --c-violet: #c4b5fd; --c-violet-bg: rgba(109, 40, 217, 0.26);
+            --shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.6);
+        }
 
-  /* ── Host chips ── */
-  .host-chip {
-    display: inline-flex; align-items: center; gap: .3rem;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: .2rem .5rem;
-    font-size: .68rem;
-    font-family: var(--mono);
-    margin: .15rem;
-    cursor: pointer;
-  }
-  .host-chip:hover { border-color: var(--red); }
-  .host-chip .hname { color: var(--accent); font-weight: 700; }
-  .host-chip .hip   { color: var(--muted); }
-  .host-chip .hmac  { color: var(--purple); }
-  .host-chip .del   { color: var(--red); opacity: .5; margin-right: 2px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; font-size: 20px; }
+        @media (max-width: 600px) { html { font-size: 18px; } }
 
-  /* ── Network SVG ── */
-  #net-wrap {
-    background: var(--panel);
-    border-radius: 8px;
-    border: 1px solid var(--border);
-  }
-  #net-svg { display: block; width: 100%; max-height: 360px; }
+        html body {
+            font-family: var(--font-body);
+            font-weight: 500;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.8;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
 
-  /* ── Code viewer ── */
-  #code-wrap {
-    height: 120px;
-    overflow-y: auto;
-    font-family: var(--mono);
-    font-size: .68rem;
-    line-height: 1.4;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
-    background: #fdfaf4;
-  }
-  .code-section { border-bottom: 1px solid var(--border); }
-  .sec-hdr {
-    padding: .2rem .6rem;
-    font-size: .62rem;
-    font-weight: 700;
-    color: var(--muted);
-    background: var(--panel);
-    border-bottom: 1px solid var(--border);
-    letter-spacing: .05em;
-    text-transform: uppercase;
-  }
-  .sec-hdr.active { color: var(--accent2); background: #deeaf8; }
-  .code-line {
-    display: flex;
-    border-left: 3px solid transparent;
-    transition: background .18s;
-    direction: ltr;
-  }
-  .code-line.hl {
-    background: #deeaf8;
-    border-left-color: var(--accent);
-  }
-  .ln {
-    min-width: 22px;
-    padding: 1px 4px;
-    color: var(--muted2);
-    text-align: right;
-    user-select: none;
-    flex-shrink: 0;
-    font-size: .62rem;
-  }
-  .lc { padding: 1px 6px; color: var(--muted); white-space: pre; }
-  .code-line.hl .lc { color: var(--text); font-weight: 600; }
+        button, input, textarea, select { font-family: inherit; }
+        button { cursor: pointer; }
+        h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 800; }
+        :focus-visible { outline: 3px solid #f59e0b; outline-offset: 3px; }
 
-  /* ── Step bar & Desc Box ── */
-  #step-bar {
-    display: flex; align-items: center; gap: .4rem;
-    padding: .4rem .75rem;
-    background: var(--panel);
-    border-bottom: 1px solid var(--border);
-    flex-wrap: wrap;
-  }
-  .step-counter {
-    font-family: var(--mono);
-    font-size: .7rem;
-    color: var(--muted);
-    min-width: 65px;
-    margin-right: auto;
-  }
-  #step-desc-box {
-    margin-top: .5rem;
-    padding: .5rem .8rem;
-    background: #deeaf8;
-    border: 1px solid #b8d4f2;
-    border-radius: 6px;
-    font-size: .75rem;
-    color: var(--accent2);
-    font-weight: 600;
-    min-height: 38px;
-    display: flex;
-    align-items: center;
-  }
+        body .container { width: 100%; max-width: 1380px; margin: 0 auto; padding: 0 16px; }
 
-  /* ── Tables ── */
-  .large-table-container {
-    min-height: 140px;
-    max-height: 180px;
-    overflow-y: auto;
-  }
-  table.tbl {
-    width: 100%; border-collapse: collapse;
-    font-family: var(--mono); font-size: .78rem;
-  }
-  .tbl th {
-    color: var(--accent2); font-weight: 700;
-    text-align: right; padding: .4rem .5rem;
-    border-bottom: 2px solid var(--border);
-    font-size: .7rem; text-transform: uppercase;
-    background: var(--panel);
-  }
-  .tbl td {
-    padding: .35rem .5rem;
-    border-bottom: 1px solid var(--border);
-    color: var(--text);
-  }
-  
-  /* ── ARP ── */
-  .arp-host { 
-    margin-bottom: .5rem; 
-    background: var(--bg);
-    padding: .4rem .6rem;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-  }
-  .arp-name { font-size: .72rem; font-weight: 700; color: var(--accent); font-family: var(--mono); margin-bottom: .2rem; }
-  .arp-empty { color: var(--muted2); font-family: var(--mono); font-size: .7rem; }
-  .arp-entry { font-family: var(--mono); font-size: .72rem; color: var(--text); font-weight: 600; }
-  .arp-entry .arrow { color: var(--muted2); margin: 0 .2rem; }
+        /* ---------- סטרייפים עליונים ---------- */
+        .top-stripe {
+            background: var(--red);
+            color: #ffffff;
+            padding: 8px 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
 
-  /* ── Log ── */
-  #log {
-    height: 100px; overflow-y: auto;
-    font-family: var(--mono); font-size: .72rem; line-height: 1.6;
-    scrollbar-width: thin; scrollbar-color: var(--border) transparent;
-  }
-  .log-entry { color: var(--muted); }
-  .log-entry.latest { color: var(--text); font-weight: 700; }
-  .log-entry.arp   { color: var(--yellow); }
-  .log-entry.arpr  { color: var(--green);  }
-  .log-entry.data  { color: var(--accent); }
-  .log-entry.flood { color: var(--purple); }
+        .stripe-group { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 
-  .empty { color: var(--muted2); font-size: .75rem; font-family: var(--mono); text-align: center; padding: 1rem; }
+        .stripe-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-family: var(--font-code);
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
 
-  /* ── Speed ── */
-  #speed-wrap { display: flex; align-items: center; gap: .4rem; font-size: .7rem; color: var(--muted); }
-  #speed { width: 75px; accent-color: var(--accent); cursor: pointer; }
+        .pulse-green {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: #4ade80;
+            box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.4);
+            animation: pulse 1.8s infinite;
+        }
 
-  /* ── Packet pulse ── */
-  @keyframes pkpulse {
-    0%,100% { opacity: 1; r: 15; }
-    50%      { opacity: .6; r: 18; }
-  }
-  .pkt-circle { animation: pkpulse .65s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-  /* ── Floating Bot Widget ── */
-  .bot-widget {
-    position: fixed; bottom: 15px; left: 15px;
-    display: flex; align-items: center; gap: 8px;
-    background: var(--surface); border: 2px solid var(--accent);
-    padding: 6px 12px 6px 6px; border-radius: 50px;
-    box-shadow: var(--shadow-lg); cursor: pointer; text-decoration: none; color: var(--text); z-index: 1000;
-  }
-  .bot-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--accent); }
-  .bot-title { font-size: .75rem; font-weight: 700; color: var(--accent2); }
-  .bot-sub { font-size: .62rem; color: var(--muted); }
+        /* ---------- כותרת עליונה ---------- */
+        header {
+            background: var(--paper);
+            border-bottom: 2px solid var(--line);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+        .header-content { display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 16px; }
+        @media (min-width: 900px) { .header-content { flex-direction: row; } }
+        .header-title-area { display: flex; align-items: center; gap: 16px; }
+        header h1 { font-size: 1.35rem; line-height: 1.3; color: var(--red-text); }
+        header p { font-size: 0.85rem; line-height: 1.5; color: var(--muted); font-weight: 500; }
+        
+        .crazy-avatar {
+            width: 60px; height: 60px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+            border: 3px solid var(--red); background: #fff;
+            transform: rotate(8deg);
+        }
 
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        .header-badges { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; align-items: center; }
+        .badge {
+            background: var(--paper); border: 2px solid var(--line); color: var(--ink);
+            font-size: 0.85rem; font-weight: 700; padding: 4px 16px; border-radius: 12px; line-height: 1.7;
+        }
 
-  @media (max-width: 900px) {
-    .grid { grid-template-columns: 1fr; }
-    .tables-row { grid-template-columns: 1fr; }
-  }
-</style>
+        .mode-btn {
+            min-height: 48px; padding: 0 18px; border-radius: 12px;
+            background: var(--paper); color: var(--ink); border: 2px solid var(--line);
+            font-weight: 700; font-size: 0.85rem;
+        }
+        .mode-btn:hover { border-color: var(--red); }
+
+        /* ---------- פריסה ראשית מותאמת לתמונה ---------- */
+        main { flex-grow: 1; padding: 20px 0 40px; }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        @media (min-width: 950px) {
+            .grid-layout {
+                grid-template-columns: 1fr 1fr; /* חלוקה של עמודה ימינית ועמודה שמאלית */
+            }
+        }
+
+        .left-col-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .tables-row-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* ---------- כרטיסים ---------- */
+        .card {
+            background: var(--paper); border: 2px solid var(--line); border-radius: 22px;
+            padding: clamp(16px, 2.5vw, 22px); box-shadow: var(--shadow);
+        }
+        .card-title {
+            font-size: 0.95rem; color: var(--red-text); margin-bottom: 12px; line-height: 1.4;
+            display: flex; align-items: center; gap: 8px; font-weight: 800;
+        }
+
+        /* ---------- בקרות וסימולטור ---------- */
+        .step-bar {
+            display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+            background: var(--bg); border: 2px solid var(--line); padding: 8px 12px; border-radius: 14px; margin-bottom: 12px;
+        }
+        .step-counter {
+            font-family: var(--font-code); font-size: 0.8rem; font-weight: 700; color: var(--muted); margin-right: auto;
+        }
+
+        .net-wrap {
+            background: #090d16; border: 2px solid #1e293b; border-radius: 16px; padding: 10px; overflow: hidden;
+        }
+        #net-svg { display: block; width: 100%; max-height: 380px; }
+
+        .step-desc-box {
+            margin-top: 12px; padding: 12px 16px; background: var(--c-sky-bg); border-right: 4px solid var(--c-sky);
+            border-radius: 12px; font-size: 0.85rem; font-weight: 700; color: var(--ink); min-height: 48px;
+            display: flex; align-items: center;
+        }
+
+        /* ---------- שדות קלט וכפתורים ---------- */
+        .input-group { display: flex; flex-direction: column; gap: 4px; }
+        .input-group label { font-size: 0.72rem; font-weight: 700; color: var(--ink); }
+        .cyber-input, select {
+            background: var(--bg); border: 2px solid var(--line); border-radius: 10px;
+            padding: 6px 10px; font-family: var(--font-code); font-size: 0.8rem; font-weight: 700;
+            color: var(--c-sky); direction: ltr; outline: none; transition: border-color 0.2s;
+        }
+        .cyber-input:focus, select:focus { border-color: var(--red); }
+
+        .action-btn {
+            background: var(--red); color: #ffffff; font-size: 0.8rem; font-weight: 800;
+            padding: 8px 16px; border: none; border-radius: 10px; cursor: pointer;
+            text-align: center; transition: background 0.2s; white-space: nowrap;
+        }
+        .action-btn:hover { background: #991b1b; }
+        .action-btn.btn-sec { background: var(--paper); color: var(--ink); border: 2px solid var(--line); }
+        .action-btn.btn-sec:hover { border-color: var(--red); }
+        .action-btn.btn-violet { background: var(--c-violet); color: #fff; }
+
+        /* ---------- Host Chips ---------- */
+        .host-chip {
+            display: inline-flex; align-items: center; gap: 6px; background: var(--bg);
+            border: 2px solid var(--line); border-radius: 10px; padding: 4px 10px;
+            font-size: 0.72rem; font-family: var(--font-code); margin: 3px; cursor: pointer;
+        }
+        .host-chip:hover { border-color: var(--red); }
+        .host-chip .hname { color: var(--red-text); font-weight: 800; }
+        .host-chip .hip { color: var(--muted); }
+        .host-chip .hmac { color: var(--c-violet); }
+        .host-chip .del { color: var(--red); opacity: 0.6; font-weight: 800; }
+
+        /* ---------- טבלאות ---------- */
+        .table-scroll { max-height: 180px; overflow-y: auto; scrollbar-width: thin; }
+        .sim-table { width: 100%; border-collapse: collapse; font-family: var(--font-code); font-size: 0.75rem; }
+        .sim-table th, .sim-table td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: right; }
+        .sim-table th { background: var(--bg); color: var(--red-text); font-weight: 800; position: sticky; top: 0; }
+
+        .arp-host-box { background: var(--bg); border: 1.5px solid var(--line); border-radius: 10px; padding: 6px 10px; margin-bottom: 6px; }
+        .arp-name { font-size: 0.72rem; font-weight: 800; color: var(--c-sky); font-family: var(--font-code); }
+        .arp-entry { font-family: var(--font-code); font-size: 0.72rem; color: var(--ink); font-weight: 700; }
+
+        /* ---------- LOG ---------- */
+        #log {
+            height: 110px; overflow-y: auto; font-family: var(--font-code); font-size: 0.75rem; line-height: 1.6;
+            scrollbar-width: thin; padding: 4px;
+        }
+        .log-entry { color: var(--muted); }
+        .log-entry.latest { color: var(--ink); font-weight: 800; }
+        .log-entry.arp { color: var(--c-amber); }
+        .log-entry.arpr { color: var(--c-green); }
+        .log-entry.data { color: var(--c-sky); }
+        .log-entry.flood { color: var(--c-violet); }
+
+        /* ---------- בוט עזר צף ---------- */
+        .floating-bot-container { position: fixed; bottom: 20px; left: 20px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+        .floating-bot-card {
+            width: 320px; max-width: calc(100vw - 40px);
+            background: var(--paper); color: var(--ink);
+            border: 2px solid var(--line); border-radius: 20px;
+            padding: 18px; box-shadow: 0 14px 34px rgba(0,0,0,0.3);
+            display: flex; flex-direction: column; gap: 12px;
+        }
+        .bot-header { display: flex; align-items: center; gap: 14px; border-bottom: 2px dashed var(--line); padding-bottom: 12px; }
+        .bot-header h4 { font-size: 1rem; color: var(--red-text); line-height: 1.4; }
+        .bot-header span.sub { font-size: 0.75rem; color: var(--muted); }
+        .bot-avatar-spinning {
+            width: 54px; height: 54px; border-radius: 50%; object-fit: cover; flex-shrink: 0;
+            border: 3px solid var(--red); background: #fff; transform: rotate(15deg);
+        }
+        .bot-toggle-btn {
+            display: flex; align-items: center; gap: 10px;
+            background: var(--paper); border: 2px solid var(--red); color: var(--red-text);
+            padding: 0 22px; min-height: 56px; border-radius: 9999px; font-weight: 800; font-size: 0.85rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+        }
+        .gemini-bot-btn {
+            background: var(--red); color: #fff; text-decoration: none; padding: 10px 14px; border-radius: 12px;
+            font-size: 0.8rem; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+
+        footer {
+            background: var(--paper); color: var(--muted); padding: 22px 0 100px; text-align: center; font-size: 0.8rem;
+            margin-top: auto; border-top: 2px solid var(--line);
+        }
+
+        .eng-tag {
+            display: inline-block; direction: ltr; unicode-bidi: isolate; text-align: left;
+            font-family: var(--font-code); font-size: 0.8em; font-weight: 700; line-height: 1.5;
+            padding: 0 0.45em; margin: 0 0.15em; border-radius: 7px;
+            border: 1.5px solid var(--term); background: var(--term-soft); color: var(--term);
+            white-space: nowrap;
+        }
+        .empty { color: var(--muted); font-size: 0.75rem; font-family: var(--font-code); text-align: center; padding: 10px; }
+        .pkt-circle { animation: pkpulse .65s ease-in-out infinite; }
+        @keyframes pkpulse { 0%,100% { opacity: 1; r: 15; } 50% { opacity: .6; r: 18; } }
+    </style>
 </head>
 <body>
 
-<header>
-  <div class="logo">
-    <img src="https://lh3.googleusercontent.com/d/1t9QaPCKLvtAhWncetA83ALY8EIvpnFte" alt="Crazy Avatar" class="crazy-avatar">
-  </div>
-  <div>
-    <h1>L2 Switch <span>Simulator</span></h1>
-    <div class="subtitle">מדמה שלב-אחרי-שלב — ARP, MAC Learning & Forwarding</div>
-  </div>
-</header>
-
-<div class="grid">
-
-  <!-- עמודה ימנית: טופולוגיה בלבד -->
-  <div class="left-col">
-
-    <!-- Topology -->
-    <div class="card">
-      <div class="card-hdr"><span class="dot" style="background:var(--purple)"></span>טופולוגיית רשת</div>
-      
-      <!-- כפתורי שליטה מעל הדיאגרמה -->
-      <div id="step-bar">
-        <button class="btn btn-sm btn-neutral" onclick="resetSim()">↺ איפוס</button>
-        <button class="btn btn-sm btn-neutral" onclick="prevStep()">◀ אחורה</button>
-        <button class="btn btn-sm btn-primary" onclick="nextStep()">▶ קדימה</button>
-        <button class="btn btn-sm btn-play" id="play-btn" onclick="togglePlay()">▶▶ אוטו</button>
-        <span class="step-counter" id="step-counter">לחץ הרץ</span>
-      </div>
-
-      <div class="card-body" style="padding:.5rem">
-        <div id="net-wrap"><svg id="net-svg" viewBox="0 0 360 280" style="display:block;width:100%"></svg></div>
-        <!-- חלונית תיאור השלב מתחת לסימולטור -->
-        <div id="step-desc-box"><span id="step-desc"></span></div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- עמודה שמאלית: טבלאות, הגדרות ופעולות (מעל הוג), לוג, קוד -->
-  <div class="right-col">
-
-    <div class="tables-row">
-      <!-- MAC Table -->
-      <div class="card">
-        <div class="card-hdr"><span class="dot" style="background:var(--accent)"></span>טבלת מתג MAC Table</div>
-        <div class="card-body large-table-container" style="padding:.5rem">
-          <div id="mac-table-wrap"><div class="empty">ריקה</div></div>
+    <!-- 🔴 הסטרייפ העליון -->
+    <div class="top-stripe">
+        <div class="stripe-group">
+            <span class="stripe-badge"><span class="pulse-green"></span> ACTIVE SIMULATOR</span>
+            <span>📅 <b>תאריך עדכון:</b> <span id="current-date"></span></span>
         </div>
-      </div>
-
-      <!-- ARP Tables -->
-      <div class="card">
-        <div class="card-hdr"><span class="dot" style="background:var(--green)"></span>טבלאות ARP ברשת</div>
-        <div class="card-body large-table-container" style="padding:.5rem">
-          <div id="arp-tables-wrap"><div class="empty">ריקות</div></div>
+        <div class="stripe-group">
+            <span class="stripe-badge">🖥️ <b>סימולטור סוויטש L2</b></span>
         </div>
-      </div>
     </div>
 
-    <!-- Add host & Send frame (הועבר לכאן - מעל לוג פעילות רשת) -->
-    <div class="card">
-      <div class="card-hdr"><span class="dot" style="background:var(--green)"></span>הגדרות ופעולות</div>
-      <div class="card-body">
-        <div class="row" style="margin-bottom:.6rem">
-          <div><label>שם</label><input id="in-name" placeholder="PC1" style="width:55px"></div>
-          <div><label>כתובת IP</label><input id="in-ip" placeholder="192.168.1.1" style="width:100px"></div>
-          <div><label>MAC</label><input id="in-mac" placeholder="AA:01" style="width:65px"></div>
-          <div><button class="btn btn-success" onclick="addHost()">+ הוסף</button></div>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="header-title-area">
+                <img src="https://lh3.googleusercontent.com/d/1t9QaPCKLvtAhWncetA83ALY8EIvpnFte" alt="אווטאר" class="crazy-avatar">
+                <div>
+                    <h1>מדמה סוויטש <span class="eng-tag">L2 Switch Simulator</span></h1>
+                    <p>סימולציה אינטראקטיבית שלב אחר שלב של פרוטוקול <span class="eng-tag">ARP</span>, לימוד כתובות <span class="eng-tag">MAC</span> והעברת פריימים ברשת</p>
+                </div>
+            </div>
+            <div class="header-badges">
+                <span class="badge">האקדמיה לרשתות</span>
+                <button class="mode-btn" id="darkToggleBtn" onclick="toggleDark()">🌙 מצב לילה</button>
+            </div>
         </div>
-        <div id="host-list" style="margin-bottom: .6rem;"></div>
-        <hr style="border:0; border-top: 1px solid var(--border); margin: .6rem 0;">
-        <div class="row">
-          <div><label>שולח</label><select id="sel-src" style="width:110px"></select></div>
-          <div><label>IP יעד</label><select id="sel-dst" style="width:110px"></select></div>
-          <div>
-            <label>הודעה</label>
-            <select id="sel-msg" style="width:110px">
-              <option value="שלום!">שלום!</option>
-              <option value="PING Req">PING Req</option>
-              <option value="HTTP Get">HTTP Get</option>
-              <option value="ARP Query">ARP Query</option>
-              <option value="Data Frame">Data Frame</option>
-            </select>
-          </div>
-          <div><button class="btn btn-primary" onclick="runSim()">▶ הרץ</button></div>
-          <div id="speed-wrap" style="margin-right:auto;">
-            <span>מהירות:</span>
-            <input type="range" id="speed" min="500" max="6000" value="3000" step="250">
-            <span id="speed-label">3.0s</span>
-          </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="container">
+        <div class="grid-layout">
+
+            <!-- עמודה שמאלית: טבלאות ARP ו-MAC למעלה, הגדרות באמצע, ולוג בתחתית -->
+            <div class="left-col-stack">
+
+                <!-- שורה עליונה: טבלאות ARP ו-MAC לצד זו -->
+                <div class="tables-row-grid">
+                    <div class="card">
+                        <h3 class="card-title" style="color: var(--c-green);">🟢 טבלאות ARP ברשת</h3>
+                        <div class="table-scroll">
+                            <div id="arp-tables-wrap"><div class="empty">טבלאות ריקות</div></div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-title" style="color: var(--c-sky);">🔵 טבלת מתג MAC Table</h3>
+                        <div class="table-scroll">
+                            <div id="mac-table-wrap"><div class="empty">טבלה ריקה</div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- הגדרות ופעולות -->
+                <div class="card">
+                    <h3 class="card-title">🟢 הגדרות ופעולות</h3>
+                    
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; align-items: flex-end; justify-content: flex-end;">
+                        <button class="action-btn" onclick="addHost()">+ הוסף</button>
+                        <div class="input-group">
+                            <label>MAC</label>
+                            <input id="in-mac" placeholder="AA:01" class="cyber-input" style="width: 75px;">
+                        </div>
+                        <div class="input-group">
+                            <label>כתובת IP</label>
+                            <input id="in-ip" placeholder="192.168.1.1" class="cyber-input" style="width: 110px;">
+                        </div>
+                        <div class="input-group">
+                            <label>שם</label>
+                            <input id="in-name" placeholder="PC1" class="cyber-input" style="width: 65px;">
+                        </div>
+                    </div>
+
+                    <div id="host-list" style="margin-bottom: 12px; text-align: right;"></div>
+                    <hr style="border: 0; border-top: 2px dashed var(--line); margin: 10px 0;">
+
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end; justify-content: flex-end;">
+                        <button class="action-btn" onclick="runSim()">▶ הרץ</button>
+                        <div class="input-group">
+                            <label>הודעה</label>
+                            <select id="sel-msg" style="width: 110px;">
+                                <option value="שלום!">שלום!</option>
+                                <option value="PING Req">PING Req</option>
+                                <option value="HTTP Get">HTTP Get</option>
+                                <option value="ARP Query">ARP Query</option>
+                                <option value="Data Frame">Data Frame</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>IP יעד</label>
+                            <select id="sel-dst" style="width: 110px;"></select>
+                        </div>
+                        <div class="input-group">
+                            <label>שולח</label>
+                            <select id="sel-src" style="width: 110px;"></select>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 0.75rem; color: var(--muted); justify-content: flex-start;">
+                        <span id="speed-label" class="eng-tag">3.0s</span>
+                        <input type="range" id="speed" min="500" max="6000" value="3000" step="250" style="accent-color: var(--red);">
+                        <span>מהירות:</span>
+                    </div>
+                </div>
+
+                <!-- לוג פעילות רשת -->
+                <div class="card">
+                    <h3 class="card-title" style="color: var(--c-amber);">🟡 לוג פעילות רשת</h3>
+                    <div id="log"><div class="empty">הרץ סימולציה לצפייה ביומן הפעילות...</div></div>
+                </div>
+
+            </div>
+
+            <!-- עמודה ימינית: טופולוגיית רשת ודיאגרמה בלבד -->
+            <div>
+                <div class="card" style="height: 100%;">
+                    <h3 class="card-title" style="color: var(--c-violet);">🟣 טופולוגיית רשת</h3>
+
+                    <div class="step-bar">
+                        <span class="step-counter" id="step-counter">לחץ הרץ</span>
+                        <button class="action-btn btn-violet" id="play-btn" onclick="togglePlay()">▶▶ אוטו</button>
+                        <button class="action-btn" onclick="nextStep()">▶ קדימה</button>
+                        <button class="action-btn btn-sec" onclick="prevStep()">◀ אחורה</button>
+                        <button class="action-btn btn-sec" onclick="resetSim()">↺ איפוס</button>
+                    </div>
+
+                    <div class="net-wrap">
+                        <svg id="net-svg" viewBox="0 0 360 280"></svg>
+                    </div>
+
+                    <div class="step-desc-box" id="step-desc-box">
+                        <span id="step-desc">לחץ על '▶ הרץ' בחלונית ההגדרות כדי להתחיל בסימולציה.</span>
+                    </div>
+                </div>
+            </div>
+
         </div>
-      </div>
+    </main>
+
+    <!-- Floating Assistant Bot -->
+    <div class="floating-bot-container">
+        <div id="bot-card" class="floating-bot-card" style="display: none;">
+            <div class="bot-header">
+                <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="בוט עזרה" class="bot-avatar-spinning">
+                <div>
+                    <h4>הבוט של הרשתות 🤖</h4>
+                    <span class="sub">עוזר בלמידת סוויטשינג ו-ARP</span>
+                </div>
+            </div>
+            
+            <p style="font-size: 0.8rem; line-height: 1.6;">
+                שאל את הבוט כל שאלה לגבי תהליך ה-ARP Learning, הצפת פריימים Flooding או טבלאות ה-MAC!
+            </p>
+
+            <a href="https://gemini.google.com/gem/13FFjtbW5S3yg0EE1qBEQiP8GEMwoepKu?usp=sharing" target="_blank" class="gemini-bot-btn">
+                <span>💬 פתח בצ'אט עזרה</span>
+                <i data-lucide="external-link" style="width: 16px; height: 16px;"></i>
+            </a>
+        </div>
+
+        <button onclick="toggleBotCard()" class="bot-toggle-btn">
+            <span>🤖 שאל את הבוט</span>
+        </button>
     </div>
 
-    <!-- לוג activity -->
-    <div class="card">
-      <div class="card-hdr"><span class="dot" style="background:var(--yellow)"></span>לוג פעילות רשת</div>
-      <div class="card-body" style="padding:.5rem">
-        <div id="log"><div class="empty">הרץ סימולציה לצפייה ביומן הפעילות...</div></div>
-      </div>
-    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>© 2026 מדמה סוויטש L2 ופרוטוקול ARP - מותאם למסלולי תקשורת וסייבר</p>
+        </div>
+    </footer>
 
-    <!-- Code viewer -->
-    <div class="card" style="display:flex;flex-direction:column">
-      <div class="card-hdr" style="justify-content:space-between">
-        <span style="display:flex;align-items:center;gap:.4rem">
-          <span class="dot" style="background:var(--yellow)"></span>קוד פייתון מדמה (Python)
-        </span>
-        <span id="active-fn" style="color:var(--accent2);font-size:.68rem;font-family:var(--mono);font-weight:700"></span>
-      </div>
-      <div id="code-wrap"></div>
-    </div>
+    <!-- JavaScript Logic -->
+    <script>
+        document.getElementById('current-date').textContent = new Date().toLocaleDateString('he-IL', {
+            day: '2-digit', month: '2-digit', year: 'numeric'
+        });
 
-  </div>
+        function applyDark(on) {
+            document.body.classList.toggle('dark', on);
+            document.getElementById('darkToggleBtn').textContent = on ? '☀️ מצב יום' : '🌙 מצב לילה';
+        }
+        function toggleDark() {
+            const on = !document.body.classList.contains('dark');
+            applyDark(on);
+            try { localStorage.setItem('l2_sim_dark', on ? '1' : '0'); } catch (e) {}
+        }
 
-</div>
+        function toggleBotCard() {
+            const card = document.getElementById('bot-card');
+            card.style.display = card.style.display === 'none' ? 'flex' : 'none';
+        }
 
-<!-- חלונית צפה לבוט -->
-<a href="https://gemini.google.com/gem/13FFjtbW5S3yg0EE1qBEQiP8GEMwoepKu?usp=sharing" target="_blank" class="bot-widget">
-  <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" alt="Bot Avatar" class="bot-avatar" onerror="this.src='https://via.placeholder.com/42?text=🤖'">
-  <div class="bot-text">
-    <span class="bot-title">שאל את הבוט</span>
-    <span class="bot-sub">עוזר למידה אישי</span>
-  </div>
-</a>
+        // --- SIMULATOR STATE & LOGIC ---
+        let hosts = [
+            { name: "PC1", ip: "192.168.1.1", mac: "AA:01" },
+            { name: "PC2", ip: "192.168.1.2", mac: "AA:02" },
+            { name: "PC3", ip: "192.168.1.3", mac: "AA:03" }
+        ];
+        let steps = [], cur = -1, playTimer = null, isPlaying = false;
 
-<script>
-// ──────────────────────────────────────────────
-//  STATE
-// ──────────────────────────────────────────────
-let hosts = [
-  { name:"PC1", ip:"192.168.1.1", mac:"AA:01" },
-  { name:"PC2", ip:"192.168.1.2", mac:"AA:02" },
-  { name:"PC3", ip:"192.168.1.3", mac:"AA:03" },
-];
-let steps = [], cur = -1, playTimer = null, isPlaying = false;
+        function buildSim(srcIdx, dstIp, msg) {
+            const dstIdx = hosts.findIndex(h => h.ip === dstIp);
+            if (dstIdx < 0 || dstIdx === srcIdx) return [];
+            const src = hosts[srcIdx], dst = hosts[dstIdx];
+            let macSnap = {}, arpSnap = hosts.map(() => ({}));
+            const result = [];
 
-// ──────────────────────────────────────────────
-//  CODE DEFINITIONS
-// ──────────────────────────────────────────────
-const CODE = {
-  sendPacket: {
-    label: "Host.send_packet()",
-    lines: [
-      "def send_packet(self, target_ip, msg, switch):",
-      "    if target_ip in self.arp_table:",
-      "        dst_mac = self.arp_table[target_ip]",
-      "        frame = Frame(self.mac, dst_mac, self.ip, target_ip, msg, type='DATA')",
-      "    else:",
-      "        frame = Frame(self.mac, 'FF:FF:FF:FF:FF:FF', self.ip, target_ip, 'ARP_REQ', type='ARP_REQ')",
-      "    switch.receive_frame(frame, self)",
-    ],
-  },
-  switchReceive: {
-    label: "Switch.receive_frame()",
-    lines: [
-      "def receive_frame(self, frame, incoming_host):",
-      "    self.mac_table[frame.src_mac] = incoming_host # Learning",
-      "    if frame.dst_mac == 'FF:FF:FF:FF:FF:FF':",
-      "        for host in self.ports:",
-      "            if host != incoming_host: host.receive_frame(frame)",
-      "    elif frame.dst_mac in self.mac_table:",
-      "        target = self.mac_table[frame.dst_mac]",
-      "        target.receive_frame(frame)",
-      "    else:",
-      "        # Flooding",
-      "        for host in self.ports:",
-      "            if host != incoming_host: host.receive_frame(frame)",
-    ],
-  },
-  hostReceive: {
-    label: "Host.receive_frame()",
-    lines: [
-      "def receive_frame(self, frame):",
-      "    if frame.dst_mac in [self.mac, 'FF:FF:FF:FF:FF:FF']:",
-      "        if frame.type == 'ARP_REQ' and frame.dst_ip == self.ip:",
-      "            self.arp_table[frame.src_ip] = frame.src_mac",
-      "            return Frame(self.mac, frame.src_mac, self.ip, frame.src_ip, 'ARP_REPLY', type='ARP_REPLY')",
-      "        elif frame.type == 'ARP_REPLY' and frame.dst_ip == self.ip:",
-      "            self.arp_table[frame.src_ip] = frame.src_mac",
-      "        elif frame.type == 'DATA' and frame.dst_mac == self.mac:",
-      "            print(f'Received: {frame.payload}')",
-    ],
-  },
-};
+            const add = (section, lines, desc, logEntry, logType, pkt, mutateFn) => {
+                if (mutateFn) mutateFn(macSnap, arpSnap);
+                result.push({
+                    section, lines: new Set(lines), desc, logEntry, logType, pkt,
+                    mac: { ...macSnap }, arp: arpSnap.map(t => ({ ...t }))
+                });
+            };
 
-// ──────────────────────────────────────────────
-//  BUILD STEPS
-// ──────────────────────────────────────────────
-function buildSim(srcIdx, dstIp, msg) {
-  const dstIdx = hosts.findIndex(h => h.ip === dstIp);
-  if (dstIdx < 0 || dstIdx === srcIdx) return [];
-  const src = hosts[srcIdx], dst = hosts[dstIdx];
-  let macSnap = {}, arpSnap = hosts.map(() => ({}));
-  const result = [];
+            const others = hosts.filter((_, i) => i !== srcIdx && i !== dstIdx);
 
-  const add = (section, lines, desc, logEntry, logType, pkt, mutateFn) => {
-    if (mutateFn) mutateFn(macSnap, arpSnap);
-    result.push({
-      section, lines: new Set(lines), desc, logEntry, logType, pkt,
-      mac: {...macSnap}, arp: arpSnap.map(t => ({...t}))
-    });
-  };
+            add("sendPacket", [0, 4, 5, 6],
+                `${src.name}.send_packet ${dstIp} — MAC לא ידוע, בונה ARP_REQUEST Broadcast`,
+                `📤 ${src.name} רוצה לשלוח ל- ${dstIp} — MAC לא ידוע! בונה Broadcast`,
+                "arp", null, null);
 
-  const others = hosts.filter((_, i) => i !== srcIdx && i !== dstIdx);
+            add("sendPacket", [6],
+                `קורא ל-switch.receive_frame ARP_REQ, dst_mac=FF:FF:FF:FF:FF:FF`,
+                `→ switch.receive_frame נקרא עם ARP_REQ`,
+                "arp", { from: srcIdx, to: "sw", kind: "ARP" }, null);
 
-  add("sendPacket",[0,4,5,6],
-    `${src.name}.send_packet("${dstIp}") — MAC לא ידוע, בונה ARP_REQUEST Broadcast`,
-    `📤 ${src.name} רוצה לשלוח ל-${dstIp} — MAC לא ידוע! בונה Broadcast`,
-    "arp", null, null);
+            add("switchReceive", [0, 1],
+                `הסוויטש לומד: ${src.mac} → Port ${srcIdx + 1} MAC Learning`,
+                `🔍 Switch למד: ${src.mac} ← Port ${srcIdx + 1}`,
+                "flood", null, m => { m[src.mac] = srcIdx; });
 
-  add("sendPacket",[6],
-    `קורא ל-switch.receive_frame(ARP_REQ, dst_mac=FF:FF:FF:FF:FF:FF)`,
-    `→ switch.receive_frame() נקרא עם ARP_REQ`,
-    "arp", { from: srcIdx, to:"sw", kind:"ARP" }, null);
+            add("switchReceive", [2, 3, 4],
+                `dst_mac == FF:FF:FF:FF:FF:FF → FLOOD לכל ${hosts.length - 1} הפורטים!`,
+                `📢 BROADCAST FLOOD! ARP_REQ נשלח לכל הפורטים`,
+                "flood", { from: "sw", to: "broadcast", kind: "ARP", exclude: srcIdx }, null);
 
-  add("switchReceive",[0,1],
-    `הסוויטש לומד: ${src.mac} → Port ${srcIdx+1} (MAC Learning)`,
-    `🔍 Switch למד: ${src.mac} ← Port ${srcIdx+1}`,
-    "flood", null, m => { m[src.mac] = srcIdx; });
+            if (others.length > 0) {
+                add("hostReceive", [0, 1],
+                    `${others.map(h => h.name).join(", ")}: dst_ip ≠ self.ip → return None מושלך`,
+                    `🚫 ${others.map(h => h.name).join(", ")}: לא בשבילי — מסגרת מושלכת`,
+                    "flood", null, null);
+            }
 
-  add("switchReceive",[2,3,4],
-    `dst_mac == FF:FF:FF:FF:FF:FF → FLOOD לכל ${hosts.length-1} הפורטים!`,
-    `📢 BROADCAST FLOOD! ARP_REQ נשלח לכל הפורטים`,
-    "flood", { from:"sw", to:"broadcast", kind:"ARP", exclude: srcIdx }, null);
+            add("hostReceive", [0, 1, 2, 3, 4],
+                `${dst.name}: זה בשבילי! dst_ip == ${dst.ip} → מעדכן ARP ושולח Reply`,
+                `📬 ${dst.name}: ARP_REQ עבורי! ${src.ip} → ${src.mac} נשמר, שולח ARP_REPLY`,
+                "arpr", { from: dstIdx, to: "sw", kind: "ARP_REPLY" },
+                (m, a) => { a[dstIdx][src.ip] = src.mac; });
 
-  if (others.length > 0) {
-    add("hostReceive",[0,1],
-      `${others.map(h=>h.name).join(", ")}: dst_ip ≠ self.ip → return None (מושלך)`,
-      `🚫 ${others.map(h=>h.name).join(", ")}: לא בשבילי — מסגרת מושלכת`,
-      "flood", null, null);
-  }
+            add("switchReceive", [0, 1],
+                `הסוויטש לומד: ${dst.mac} → Port ${dstIdx + 1}`,
+                `🔍 Switch למד: ${dst.mac} ← Port ${dstIdx + 1}`,
+                "arpr", null, m => { m[dst.mac] = dstIdx; });
 
-  add("hostReceive",[0,1,2,3,4],
-    `${dst.name}: זה בשבילי! dst_ip == ${dst.ip} → מעדכן ARP ושולח Reply`,
-    `📬 ${dst.name}: ARP_REQ עבורי! ${src.ip}→${src.mac} נשמר, שולח ARP_REPLY`,
-    "arpr", { from: dstIdx, to:"sw", kind:"ARP_REPLY" },
-    (m,a) => { a[dstIdx][src.ip] = src.mac; });
+            add("switchReceive", [5, 6, 7],
+                `${dst.mac} נמצא בטבלה → Unicast ל-Port ${srcIdx + 1} בלבד`,
+                `🎯 ARP_REPLY → Unicast ישיר ל-Port ${srcIdx + 1} ${src.name}`,
+                "arpr", { from: "sw", to: srcIdx, kind: "ARP_REPLY" }, null);
 
-  add("switchReceive",[0,1],
-    `הסוויטש לומד: ${dst.mac} → Port ${dstIdx+1}`,
-    `🔍 Switch למד: ${dst.mac} ← Port ${dstIdx+1}`,
-    "arpr", null, m => { m[dst.mac] = dstIdx; });
+            add("hostReceive", [0, 5, 6],
+                `${src.name}: ARP_REPLY התקבל! ${dst.ip} = ${dst.mac} → עדכון טבלת ARP`,
+                `✅ ${src.name}: ARP_REPLY! ${dst.ip} → ${dst.mac} נשמר בטבלה`,
+                "arpr", null, (m, a) => { a[srcIdx][dst.ip] = dst.mac; });
 
-  add("switchReceive",[5,6,7],
-    `${dst.mac} נמצא בטבלה → Unicast ל-Port ${srcIdx+1} בלבד`,
-    `🎯 ARP_REPLY → Unicast ישיר ל-Port ${srcIdx+1} (${src.name})`,
-    "arpr", { from:"sw", to: srcIdx, kind:"ARP_REPLY" }, null);
+            add("sendPacket", [0, 1, 2, 3],
+                `${src.name} מנסה שוב — ${dst.ip} ידוע עכשיו! בונה DATA Unicast`,
+                `🔄 send_packet שוב: MAC ידוע! בונה מסגרת DATA`,
+                "data", null, null);
 
-  add("hostReceive",[0,5,6],
-    `${src.name}: ARP_REPLY התקבל! ${dst.ip} = ${dst.mac} → עדכון טבלת ARP`,
-    `✅ ${src.name}: ARP_REPLY! ${dst.ip}→${dst.mac} נשמר בטבלה`,
-    "arpr", null, (m,a) => { a[srcIdx][dst.ip] = dst.mac; });
+            add("sendPacket", [6],
+                `קורא ל-switch.receive_frame DATA, dst_mac=${dst.mac}`,
+                `→ switch.receive_frame עם DATA frame`,
+                "data", { from: srcIdx, to: "sw", kind: "DATA" }, null);
 
-  add("sendPacket",[0,1,2,3],
-    `${src.name} מנסה שוב — ${dst.ip} ידוע עכשיו! בונה DATA Unicast`,
-    `🔄 send_packet() שוב: MAC ידוע! בונה מסגרת DATA`,
-    "data", null, null);
+            add("switchReceive", [0, 5, 6, 7],
+                `הסוויטש: ${dst.mac} בטבלה → מעביר ל-Port ${dstIdx + 1}, ללא Flooding`,
+                `🎯 DATA → Unicast ישיר ל-Port ${dstIdx + 1} ${dst.name}`,
+                "data", { from: "sw", to: dstIdx, kind: "DATA" }, null);
 
-  add("sendPacket",[6],
-    `קורא ל-switch.receive_frame(DATA, dst_mac=${dst.mac})`,
-    `→ switch.receive_frame() עם DATA frame`,
-    "data", { from: srcIdx, to:"sw", kind:"DATA" }, null);
+            add("hostReceive", [0, 7, 8],
+                `${dst.name}: DATA עבורי dst_mac == self.mac → הודעה התקבלה!`,
+                `✉️ ${dst.name} קיבל: "${msg}"`,
+                "data", null, null);
 
-  add("switchReceive",[0,5,6,7],
-    `הסוויטש: ${dst.mac} בטבלה → מעביר ל-Port ${dstIdx+1}, ללא Flooding`,
-    `🎯 DATA → Unicast ישיר ל-Port ${dstIdx+1} (${dst.name})`,
-    "data", { from:"sw", to: dstIdx, kind:"DATA" }, null);
+            return result;
+        }
 
-  add("hostReceive",[0,7,8],
-    `${dst.name}: DATA עבורי (dst_mac == self.mac) → הודעה התקבלה!`,
-    `✉️  ${dst.name} קיבל: "${msg}"`,
-    "data", null, null);
+        function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
 
-  return result;
-}
+        function renderNetwork(step) {
+            const svg = document.getElementById("net-svg");
+            const W = 360, H = 280;
+            const SW = { x: W / 2, y: H / 2 };
+            const n = hosts.length;
+            const pts = hosts.map((_, i) => {
+                const a = (i / n) * 2 * Math.PI - Math.PI / 2;
+                return { x: SW.x + 125 * Math.cos(a), y: SW.y + 95 * Math.sin(a) };
+            });
 
-// ──────────────────────────────────────────────
-//  RENDER CODE
-// ──────────────────────────────────────────────
-function renderCode() {
-  const wrap = document.getElementById("code-wrap");
-  wrap.innerHTML = "";
-  for (const [sec, def] of Object.entries(CODE)) {
-    const div = document.createElement("div");
-    div.className = "code-section";
-    div.dataset.sec = sec;
-    const hdr = document.createElement("div");
-    hdr.className = "sec-hdr"; hdr.textContent = def.label;
-    div.appendChild(hdr);
-    def.lines.forEach((line, idx) => {
-      const row = document.createElement("div");
-      row.className = "code-line";
-      row.dataset.sec = sec; row.dataset.ln = idx;
-      row.innerHTML = `<span class="ln">${idx+1}</span><span class="lc">${esc(line)}</span>`;
-      div.appendChild(row);
-    });
-    wrap.appendChild(div);
-  }
-}
-function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+            const pkt = step?.pkt;
+            let html = "";
 
-function applyHighlight(step) {
-  document.querySelectorAll(".code-line").forEach(el => el.classList.remove("hl"));
-  document.querySelectorAll(".sec-hdr").forEach(el => el.classList.remove("active"));
-  document.getElementById("active-fn").textContent = "";
-  if (!step) return;
-  const { section, lines } = step;
-  document.getElementById("active-fn").textContent = `▶ ${CODE[section].label}`;
-  const secHdr = document.querySelector(`[data-sec="${section}"] .sec-hdr`);
-  if (secHdr) { secHdr.classList.add("active"); }
-  lines.forEach(ln => {
-    const el = document.querySelector(`.code-line[data-sec="${section}"][data-ln="${ln}"]`);
-    if (el) el.classList.add("hl");
-  });
-}
+            hosts.forEach((_, i) => {
+                const p = pts[i];
+                const active = pkt && (
+                    pkt.from === i || pkt.to === i ||
+                    (pkt.to === "broadcast" && i !== pkt.exclude)
+                );
+                html += `<line x1="${SW.x}" y1="${SW.y}" x2="${p.x}" y2="${p.y}"
+                    stroke="${active ? '#38bdf8' : '#334155'}"
+                    stroke-width="${active ? 3 : 2}"
+                    ${active ? 'stroke-dasharray="5 4"' : ''}/>`;
+            });
 
-// ──────────────────────────────────────────────
-//  NETWORK SVG
-// ──────────────────────────────────────────────
-function renderNetwork(step) {
-  const svg = document.getElementById("net-svg");
-  const W = 360, H = 280;
-  const SW = { x: W/2, y: H/2 };
-  const n = hosts.length;
-  const pts = hosts.map((_, i) => {
-    const a = (i / n) * 2 * Math.PI - Math.PI/2;
-    return { x: SW.x + 125*Math.cos(a), y: SW.y + 95*Math.sin(a) };
-  });
+            html += `
+                <rect x="${SW.x - 40}" y="${SW.y - 23}" width="80" height="46" rx="9"
+                    fill="#0f172a" stroke="#38bdf8" stroke-width="2.5"/>
+                <text x="${SW.x}" y="${SW.y - 2}" text-anchor="middle"
+                    font-family="JetBrains Mono" font-size="13" font-weight="700" fill="#f8fafc">Switch</text>
+                <text x="${SW.x}" y="${SW.y + 15}" text-anchor="middle"
+                    font-family="JetBrains Mono" font-size="9.5" font-weight="600" fill="#38bdf8">L2</text>
+            `;
 
-  const pkt = step?.pkt;
-  let html = "";
+            hosts.forEach((h, i) => {
+                const p = pts[i];
+                const isSrc = pkt?.from === i;
+                const isDst = pkt?.to === i || (pkt?.to === "broadcast" && i !== pkt?.exclude);
+                const fill = isSrc ? "#3a2c20" : isDst ? "#123640" : "#0f172a";
+                const stroke = isSrc ? "#fcd34d" : isDst ? "#4ade80" : "#334155";
+                const sw = isSrc || isDst ? 2.5 : 1.5;
+                html += `
+                    <rect x="${p.x - 41}" y="${p.y - 28}" width="82" height="56" rx="9"
+                        fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>
+                    <text x="${p.x}" y="${p.y - 10}" text-anchor="middle" font-size="15">🖥️</text>
+                    <text x="${p.x}" y="${p.y + 6}" text-anchor="middle"
+                        font-family="JetBrains Mono" font-size="9.5" font-weight="700" fill="#f8fafc">${esc(h.name)}</text>
+                    <text x="${p.x}" y="${p.y + 18}" text-anchor="middle"
+                        font-family="JetBrains Mono" font-size="8" fill="#94a3b8">${esc(h.ip)}</text>
+                `;
+            });
 
-  // Lines
-  hosts.forEach((_, i) => {
-    const p = pts[i];
-    const active = pkt && (
-      pkt.from === i || pkt.to === i ||
-      (pkt.to === "broadcast" && i !== pkt.exclude)
-    );
-    html += `<line x1="${SW.x}" y1="${SW.y}" x2="${p.x}" y2="${p.y}"
-      stroke="${active ? '#1a6fbf' : '#c8bfa8'}"
-      stroke-width="${active ? 3 : 2}"
-      ${active ? 'stroke-dasharray="5 4"' : ''}/>`;
-  });
+            if (pkt) {
+                const clrs = { ARP: "#fcd34d", ARP_REPLY: "#4ade80", DATA: "#38bdf8" };
+                const bgclr = { ARP: "#3a2c20", ARP_REPLY: "#123640", DATA: "#0f172a" };
+                const lbls = { ARP: "ARP?", ARP_REPLY: "ARP!", DATA: "DATA" };
+                const c = clrs[pkt.kind] || "#555";
+                const bg = bgclr[pkt.kind] || "#eee";
+                const lb = lbls[pkt.kind] || "?";
 
-  // Switch
-  html += `
-    <rect x="${SW.x-40}" y="${SW.y-23}" width="80" height="46" rx="9"
-      fill="#deeaf8" stroke="#1a6fbf" stroke-width="2.5"/>
-    <text x="${SW.x}" y="${SW.y-2}" text-anchor="middle"
-      font-family="IBM Plex Mono" font-size="13" font-weight="700" fill="#1557a0">Switch</text>
-    <text x="${SW.x}" y="${SW.y+15}" text-anchor="middle"
-      font-family="IBM Plex Mono" font-size="9.5" font-weight="600" fill="#1a6fbf">L2</text>
-  `;
+                if (pkt.to === "broadcast") {
+                    hosts.forEach((_, i) => {
+                        if (i === pkt.exclude) return;
+                        const f = SW, t = pts[i];
+                        const mx = f.x + (t.x - f.x) * .62, my = f.y + (t.y - f.y) * .62;
+                        html += `
+                            <circle cx="${mx}" cy="${my}" r="15" fill="${bg}" stroke="${c}" stroke-width="2" class="pkt-circle"/>
+                            <text x="${mx}" y="${my + 4}" text-anchor="middle"
+                                font-family="JetBrains Mono" font-size="8.5" font-weight="700" fill="${c}">${lb}</text>
+                        `;
+                    });
+                } else {
+                    const f = pkt.from === "sw" ? SW : pts[pkt.from];
+                    const t = pkt.to === "sw" ? SW : pts[pkt.to];
+                    const mx = f.x + (t.x - f.x) * .5, my = f.y + (t.y - f.y) * .5;
+                    html += `
+                        <circle cx="${mx}" cy="${my}" r="15" fill="${bg}" stroke="${c}" stroke-width="2" class="pkt-circle"/>
+                        <text x="${mx}" y="${my + 4}" text-anchor="middle"
+                            font-family="JetBrains Mono" font-size="8.5" font-weight="700" fill="${c}">${lb}</text>
+                    `;
+                }
+            }
 
-  // Hosts
-  hosts.forEach((h, i) => {
-    const p = pts[i];
-    const isSrc = pkt?.from === i;
-    const isDst = pkt?.to === i || (pkt?.to === "broadcast" && i !== pkt?.exclude);
-    const fill   = isSrc ? "#fdf4dc" : isDst ? "#e6f4ec" : "#fdfaf4";
-    const stroke = isSrc ? "#8a6000" : isDst ? "#1a7a3c" : "#c8bfa8";
-    const sw     = isSrc || isDst ? 2.5 : 1.5;
-    html += `
-      <rect x="${p.x-41}" y="${p.y-28}" width="82" height="56" rx="9"
-        fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>
-      <text x="${p.x}" y="${p.y-10}" text-anchor="middle" font-size="15">🖥️</text>
-      <text x="${p.x}" y="${p.y+6}" text-anchor="middle"
-        font-family="IBM Plex Mono" font-size="9.5" font-weight="700" fill="#1c1c1c">${esc(h.name)}</text>
-      <text x="${p.x}" y="${p.y+18}" text-anchor="middle"
-        font-family="IBM Plex Mono" font-size="8" fill="#6b6358">${esc(h.ip)}</text>
-    `;
-  });
+            svg.innerHTML = html;
+        }
 
-  // Packets
-  if (pkt) {
-    const clrs  = { ARP:"#8a6000", ARP_REPLY:"#1a7a3c", DATA:"#1a6fbf" };
-    const bgclr = { ARP:"#fdf4dc", ARP_REPLY:"#e6f4ec", DATA:"#deeaf8" };
-    const lbls  = { ARP:"ARP?", ARP_REPLY:"ARP!", DATA:"DATA" };
-    const c  = clrs[pkt.kind]  || "#555";
-    const bg = bgclr[pkt.kind] || "#eee";
-    const lb = lbls[pkt.kind]  || "?";
+        function renderMacTable(snap) {
+            const wrap = document.getElementById("mac-table-wrap");
+            if (!snap || !Object.keys(snap).length) { wrap.innerHTML = '<div class="empty">טבלה ריקה</div>'; return; }
+            wrap.innerHTML = `<table class="sim-table"><thead><tr>
+                <th>MAC</th><th>פורט</th></tr></thead><tbody>` +
+                Object.entries(snap).map(([mac, idx]) =>
+                    `<tr><td style="font-weight:700; color:var(--c-violet);">${mac}</td><td style="color:var(--c-sky); font-weight:800;">Port ${idx + 1}</td></tr>`
+                ).join("") + `</tbody></table>`;
+        }
 
-    if (pkt.to === "broadcast") {
-      hosts.forEach((_, i) => {
-        if (i === pkt.exclude) return;
-        const f = SW, t = pts[i];
-        const mx = f.x + (t.x-f.x)*.62, my = f.y + (t.y-f.y)*.62;
-        html += `
-          <circle cx="${mx}" cy="${my}" r="15" fill="${bg}" stroke="${c}" stroke-width="2" class="pkt-circle"/>
-          <text x="${mx}" y="${my+4}" text-anchor="middle"
-            font-family="IBM Plex Mono" font-size="8.5" font-weight="700" fill="${c}">${lb}</text>
-        `;
-      });
-    } else {
-      const f = pkt.from === "sw" ? SW : pts[pkt.from];
-      const t = pkt.to   === "sw" ? SW : pts[pkt.to];
-      const mx = f.x + (t.x-f.x)*.5, my = f.y + (t.y-f.y)*.5;
-      html += `
-        <circle cx="${mx}" cy="${my}" r="15" fill="${bg}" stroke="${c}" stroke-width="2" class="pkt-circle"/>
-        <text x="${mx}" y="${my+4}" text-anchor="middle"
-          font-family="IBM Plex Mono" font-size="8.5" font-weight="700" fill="${c}">${lb}</text>
-      `;
-    }
-  }
+        function renderArpTables(snap) {
+            const wrap = document.getElementById("arp-tables-wrap");
+            if (!snap) { wrap.innerHTML = '<div class="empty">טבלאות ריקות</div>'; return; }
+            wrap.innerHTML = hosts.map((h, i) => {
+                const entries = Object.entries(snap[i] || {});
+                return `<div class="arp-host-box">
+                    <div class="arp-name">🖥️ ${h.name} ${h.ip}</div>
+                    ${entries.length === 0
+                        ? '<div style="color:var(--muted); font-size:0.7rem;">אין רשומות</div>'
+                        : entries.map(([ip, mac]) => `<div class="arp-entry">${ip} ➔ <span style="color:var(--c-violet);">${mac}</span></div>`).join("")
+                    }
+                </div>`;
+            }).join("");
+        }
 
-  svg.innerHTML = html;
-}
+        function renderLog() {
+            const el = document.getElementById("log");
+            if (cur < 0 || !steps.length) { el.innerHTML = '<div class="empty">הרץ סימולציה לצפייה ביומן הפעילות...</div>'; return; }
+            el.innerHTML = steps.slice(0, cur + 1).map((s, i) => {
+                const cls = s.logType === "arp" ? "arp" : s.logType === "arpr" ? "arpr" : s.logType === "data" ? "data" : s.logType === "flood" ? "flood" : "";
+                const latest = i === cur ? " latest" : "";
+                return `<div class="log-entry ${cls}${latest}">${s.logEntry}</div>`;
+            }).join("");
+            el.scrollTop = el.scrollHeight;
+        }
 
-// ──────────────────────────────────────────────
-//  TABLES
-// ──────────────────────────────────────────────
-function renderMacTable(snap) {
-  const wrap = document.getElementById("mac-table-wrap");
-  if (!snap || !Object.keys(snap).length) { wrap.innerHTML='<div class="empty">טבלה ריקה</div>'; return; }
-  wrap.innerHTML = `<table class="tbl"><thead><tr>
-    <th>MAC</th><th>פורט</th></tr></thead><tbody>` +
-    Object.entries(snap).map(([mac,idx])=>
-      `<tr><td style="font-weight:600; color:var(--purple);">${mac}</td><td style="color:var(--accent);font-weight:700">Port ${idx+1}</td></tr>`
-    ).join("") + `</tbody></table>`;
-}
+        function renderHostList() {
+            const wrap = document.getElementById("host-list");
+            const selSrc = document.getElementById("sel-src");
+            const selDst = document.getElementById("sel-dst");
+            
+            if (!hosts.length) {
+                wrap.innerHTML = '<div class="empty">הוסף מחשבים למעלה</div>';
+                selSrc.innerHTML = ""; selDst.innerHTML = ""; return;
+            }
+            
+            wrap.innerHTML = hosts.map((h, i) =>
+                `<span class="host-chip" onclick="removeHost(${i})">
+                    🖥️ <span class="hname">${h.name}</span>
+                    <span class="hip">${h.ip}</span>
+                    <span class="hmac">${h.mac}</span>
+                    <span class="del">✕</span>
+                </span>`).join("");
+                
+            selSrc.innerHTML = hosts.map((h, i) => `<option value="${i}">${h.name} ${h.ip}</option>`).join("");
+            selDst.innerHTML = hosts.map((h) => `<option value="${h.ip}">${h.name} ${h.ip}</option>`).join("");
+                
+            if (hosts.length > 1) selDst.selectedIndex = 1;
+        }
 
-function renderArpTables(snap) {
-  const wrap = document.getElementById("arp-tables-wrap");
-  if (!snap) { wrap.innerHTML='<div class="empty">טבלאות ריקות</div>'; return; }
-  wrap.innerHTML = hosts.map((h,i) => {
-    const entries = Object.entries(snap[i]||{});
-    return `<div class="arp-host">
-      <div class="arp-name">🖥️ ${h.name} (${h.ip})</div>
-      ${entries.length===0
-        ? '<div class="arp-empty">אין רשומות</div>'
-        : entries.map(([ip,mac])=>`<div class="arp-entry">${ip}<span class="arrow">➔</span><span style="color:var(--purple);">${mac}</span></div>`).join("")
-      }
-    </div>`;
-  }).join("");
-}
+        function applyStep(step) {
+            renderNetwork(step);
+            renderMacTable(step?.mac || {});
+            renderArpTables(step?.arp || hosts.map(() => ({})));
+            renderLog();
+            const counter = document.getElementById("step-counter");
+            const desc = document.getElementById("step-desc");
+            if (!steps.length) { 
+                counter.textContent = "לחץ הרץ"; 
+                desc.textContent = "לחץ על '▶ הרץ' בחלונית ההגדרות כדי להתחיל בסימולציה."; 
+            } else { 
+                counter.textContent = `שלב ${Math.max(cur + 1, 0)} / ${steps.length}`; 
+                desc.textContent = step?.desc || ""; 
+            }
+        }
 
-// ──────────────────────────────────────────────
-//  LOG
-// ──────────────────────────────────────────────
-function renderLog() {
-  const el = document.getElementById("log");
-  if (cur < 0 || !steps.length) { el.innerHTML='<div class="empty">הרץ סימולציה לצפייה ביומן הפעילות...</div>'; return; }
-  el.innerHTML = steps.slice(0, cur+1).map((s,i) => {
-    const cls = s.logType==="arp"?"arp":s.logType==="arpr"?"arpr":s.logType==="data"?"data":s.logType==="flood"?"flood":"";
-    const latest = i===cur?" latest":"";
-    return `<div class="log-entry ${cls}${latest}">${s.logEntry}</div>`;
-  }).join("");
-  el.scrollTop = el.scrollHeight;
-}
+        function nextStep() { if (steps.length && cur < steps.length - 1) { cur++; applyStep(steps[cur]); } }
+        function prevStep() { if (cur < 0) return; cur--; applyStep(cur >= 0 ? steps[cur] : null); }
+        function resetSim() { stopPlay(); cur = -1; applyStep(null); }
 
-// ──────────────────────────────────────────────
-//  HOST LIST & DROPDOWNS
-// ──────────────────────────────────────────────
-function renderHostList() {
-  const wrap   = document.getElementById("host-list");
-  const selSrc = document.getElementById("sel-src");
-  const selDst = document.getElementById("sel-dst");
-  
-  if (!hosts.length) {
-    wrap.innerHTML='<div class="empty">הוסף מחשבים למעלה</div>';
-    selSrc.innerHTML=""; 
-    selDst.innerHTML=""; 
-    return;
-  }
-  
-  wrap.innerHTML = hosts.map((h,i)=>
-    `<span class="host-chip" onclick="removeHost(${i})">
-      🖥️ <span class="hname">${h.name}</span>
-      <span class="hip">${h.ip}</span>
-      <span class="hmac">${h.mac}</span>
-      <span class="del">✕</span>
-    </span>`).join("");
-    
-  selSrc.innerHTML = hosts.map((h,i)=>
-    `<option value="${i}">${h.name} (${h.ip})</option>`).join("");
+        function togglePlay() {
+            if (isPlaying) { stopPlay(); return; }
+            if (!steps.length || cur >= steps.length - 1) return;
+            isPlaying = true;
+            document.getElementById("play-btn").textContent = "⏸ עצור";
+            scheduleNext();
+        }
+        function scheduleNext() {
+            if (!isPlaying) return;
+            if (cur >= steps.length - 1) { stopPlay(); return; }
+            const spd = parseInt(document.getElementById("speed").value, 10);
+            playTimer = setTimeout(() => { nextStep(); scheduleNext(); }, spd);
+        }
+        function stopPlay() {
+            isPlaying = false; clearTimeout(playTimer);
+            document.getElementById("play-btn").textContent = "▶▶ אוטו";
+        }
 
-  selDst.innerHTML = hosts.map((h)=>
-    `<option value="${h.ip}">${h.name} (${h.ip})</option>`).join("");
-    
-  if (hosts.length > 1) {
-    selDst.selectedIndex = 1;
-  }
-}
+        function runSim() {
+            stopPlay();
+            const srcIdx = parseInt(document.getElementById("sel-src").value, 10);
+            const dstIp = document.getElementById("sel-dst").value;
+            const msg = document.getElementById("sel-msg").value;
+            if (!dstIp) { alert("בחר IP יעד"); return; }
+            steps = buildSim(srcIdx, dstIp, msg);
+            if (!steps.length) { alert("לא ניתן להריץ: המקור והיעד הם אותו מחשב!"); return; }
+            cur = -1; applyStep(null);
+        }
 
-// ──────────────────────────────────────────────
-//  APPLY STEP
-// ──────────────────────────────────────────────
-function applyStep(step) {
-  applyHighlight(step);
-  renderNetwork(step);
-  renderMacTable(step?.mac || {});
-  renderArpTables(step?.arp || hosts.map(()=>({})));
-  renderLog();
-  const counter = document.getElementById("step-counter");
-  const desc    = document.getElementById("step-desc");
-  if (!steps.length) { 
-    counter.textContent="לחץ הרץ"; 
-    desc.textContent="לחץ על '▶ הרץ' בחלונית ההגדרות כדי להתחיל בסימולציה."; 
-  }
-  else { 
-    counter.textContent=`שלב ${Math.max(cur+1,0)} / ${steps.length}`; 
-    desc.textContent=step?.desc||""; 
-  }
-}
+        function addHost() {
+            const name = document.getElementById("in-name").value.trim();
+            const ip = document.getElementById("in-ip").value.trim();
+            const mac = document.getElementById("in-mac").value.trim() || `AA:${String(hosts.length + 1).padStart(2, "0")}`;
+            if (!name || !ip) { alert("שם ו-IP הם חובה"); return; }
+            hosts.push({ name, ip, mac });
+            ["in-name", "in-ip", "in-mac"].forEach(id => document.getElementById(id).value = "");
+            renderHostList(); resetSim(); renderNetwork(null);
+        }
 
-// ──────────────────────────────────────────────
-//  CONTROLS
-// ──────────────────────────────────────────────
-function nextStep() { if (steps.length && cur < steps.length-1) { cur++; applyStep(steps[cur]); } }
-function prevStep() { if (cur < 0) return; cur--; applyStep(cur>=0?steps[cur]:null); }
-function resetSim() { stopPlay(); cur=-1; applyStep(null); }
+        function removeHost(idx) {
+            if (!confirm(`למחוק את ${hosts[idx].name}?`)) return;
+            hosts.splice(idx, 1); renderHostList(); resetSim(); renderNetwork(null);
+        }
 
-function togglePlay() {
-  if (isPlaying) { stopPlay(); return; }
-  if (!steps.length || cur >= steps.length-1) return;
-  isPlaying = true;
-  document.getElementById("play-btn").textContent = "⏸ עצור";
-  scheduleNext();
-}
-function scheduleNext() {
-  if (!isPlaying) return;
-  if (cur >= steps.length-1) { stopPlay(); return; }
-  const spd = parseInt(document.getElementById("speed").value, 10);
-  playTimer = setTimeout(()=>{ nextStep(); scheduleNext(); }, spd);
-}
-function stopPlay() {
-  isPlaying = false; clearTimeout(playTimer);
-  document.getElementById("play-btn").textContent = "▶▶ אוטו";
-}
+        document.getElementById("speed").addEventListener("input", function() {
+            document.getElementById("speed-label").textContent = (this.value / 1000).toFixed(1) + "s";
+        });
 
-function runSim() {
-  stopPlay();
-  const srcIdx = parseInt(document.getElementById("sel-src").value, 10);
-  const dstIp  = document.getElementById("sel-dst").value;
-  const msg    = document.getElementById("sel-msg").value;
-  if (!dstIp) { alert("בחר IP יעד"); return; }
-  steps = buildSim(srcIdx, dstIp, msg);
-  if (!steps.length) { alert("לא ניתן להריץ: המקור והיעד הם אותו מחשב!"); return; }
-  cur = -1; applyStep(null);
-}
-
-function addHost() {
-  const name = document.getElementById("in-name").value.trim();
-  const ip   = document.getElementById("in-ip").value.trim();
-  const mac  = document.getElementById("in-mac").value.trim() || `AA:${String(hosts.length+1).padStart(2,"0")}`;
-  if (!name||!ip) { alert("שם ו-IP הם חובה"); return; }
-  hosts.push({name,ip,mac});
-  ["in-name","in-ip","in-mac"].forEach(id=>document.getElementById(id).value="");
-  renderHostList(); resetSim(); renderNetwork(null);
-}
-
-function removeHost(idx) {
-  if (!confirm(`למחוק את ${hosts[idx].name}?`)) return;
-  hosts.splice(idx,1); renderHostList(); resetSim(); renderNetwork(null);
-}
-
-document.getElementById("speed").addEventListener("input", function(){
-  document.getElementById("speed-label").textContent=(this.value/1000).toFixed(1)+"s";
-});
-
-// ──────────────────────────────────────────────
-//  INIT
-// ──────────────────────────────────────────────
-renderCode();
-renderHostList();
-renderNetwork(null);
-renderMacTable({});
-renderArpTables(hosts.map(()=>({})));
-applyStep(null);
-</script>
+        window.onload = function() {
+            try { applyDark(localStorage.getItem('l2_sim_dark') === '1'); } catch (e) {}
+            renderHostList();
+            renderNetwork(null);
+            renderMacTable({});
+            renderArpTables(hosts.map(() => ({})));
+            applyStep(null);
+            if (typeof lucide !== 'undefined') { lucide.createIcons(); }
+        };
+    </script>
 </body>
 </html>
